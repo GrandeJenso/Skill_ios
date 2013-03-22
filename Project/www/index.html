@@ -16,14 +16,38 @@
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.iscrollview-pull.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.iscrollview.css" />
         
-        <script>
+        <style type="text/css">
+            
+            body {
+                /* Setting body margins to 0 to have proper positioning of #container div */
+                margin: 0;
+            }
+            
+            /* #container div with absolute position and 100% width and height so it takes up whole window */
+            #container {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+            
+            </style>
+        
+        <script type="text/javascript" charset="utf-8">>
             // all dialog buttons should close their parent dialog
             $(".ui-dialog button").live("click", function() {
                                         $("[data-role='dialog']").dialog("close");
                                         });
             $(document).on("mobileinit", function(){
                            $.mobile.defaultPageTransition = "slide";
+                           // Setting #container div as a jqm pageContainer
+                           $.mobile.pageContainer = $('#container');
                            });
+            
+            
+            
+
+            
+            
         </script>
         
         <style>
@@ -42,6 +66,7 @@
     </head>
     <body>
         <!-- JOBS PAGE STARTS HERE -->
+        <div id="container">
         <div data-role="page" id="jobs">
             
             <div data-role="header" data-position="fixed"  data-tap-toggle="false">
@@ -63,9 +88,9 @@
                     <ul>
                         <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
                         <li><a href="#" id="jobs_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Lediga jobb</a></li>
-                        <li><a href="#settings" id="settings_tab" data-icon="custom">Inst&#228;llningar</a></li>
-                        <li><a href="#about" id="info_tab" data-icon="custom">Om oss</a></li>
-                        <li><a href="#tips" id="tips_tab" data-icon="custom">Tips</a></li>
+                        <li><a href="#settings" id="settings_tab" data-icon="custom" data-transition="none">Inst&#228;llningar</a></li>
+                        <li><a href="#about" id="info_tab" data-icon="custom" data-transition="none">Om oss</a></li>
+                        <li><a href="#tips" id="tips_tab" data-icon="custom" data-transition="none">Tips</a></li>
                     </ul>
                 </div>
             </div><!-- /footer -->
@@ -94,10 +119,10 @@
                 <div data-role="navbar">
                     <ul>
                         <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
-                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" >Lediga jobb</a></li>
+                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" data-transition="none">Lediga jobb</a></li>
                         <li><a href="#" id="settings_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Inst&#228;llningar</a></li>
-                        <li><a href="#about" id="info_tab" data-icon="custom" >Om oss</a></li>
-                        <li><a href="#tips" id="tips_tab" data-icon="custom">Tips</a></li>
+                        <li><a href="#about" id="info_tab" data-icon="custom" data-transition="none">Om oss</a></li>
+                        <li><a href="#tips" id="tips_tab" data-icon="custom" data-transition="none">Tips</a></li>
                     </ul>
                 </div>
             </div><!-- /footer -->
@@ -127,10 +152,10 @@
                 <div data-role="navbar">
                     <ul>
                         <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
-                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" >Lediga jobb</a></li>
-                        <li><a href="#settings" id="settings_tab" data-icon="custom">Inst&#228;llningar</a></li>
+                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" data-transition="none">Lediga jobb</a></li>
+                        <li><a href="#settings" id="settings_tab" data-icon="custom" data-transition="none">Inst&#228;llningar</a></li>
                         <li><a href="#" id="info_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Om oss</a></li>
-                        <li><a href="#tips" id="tips_tab" data-icon="custom" >Tips</a></li>
+                        <li><a href="#tips" id="tips_tab" data-icon="custom" data-transition="none">Tips</a></li>
                     </ul>
                 </div>
             </div><!-- /footer -->
@@ -160,15 +185,16 @@
                 <div data-role="navbar">
                     <ul>
                         <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
-                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" >Lediga jobb</a></li>
-                        <li><a href="#settings" id="settings_tab" data-icon="custom">Inst&#228;llningar</a></li>
-                        <li><a href="#about" id="info_tab" data-icon="custom">Om oss</a></li>
+                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" data-transition="none">Lediga jobb</a></li>
+                        <li><a href="#settings" id="settings_tab" data-icon="custom" data-transition="none">Inst&#228;llningar</a></li>
+                        <li><a href="#about" id="info_tab" data-icon="custom" data-transition="none">Om oss</a></li>
                         <li><a href="#" id="tips_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Tips</a></li>
                     </ul>
                 </div>
             </div><!-- /footer -->
             
         </div>
+    </div>
         
         <!-- TIPS PAGE ENDS HERE -->
         

@@ -33,6 +33,8 @@
     <preference name="MediaPlaybackRequiresUserAction" value="false" />
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
+    
+    
 
     <content src="index.html" />
 
@@ -56,6 +58,7 @@
         <plugin name="Battery" value="CDVBattery" />
         <plugin name="Globalization" value="CDVGlobalization" />
         <plugin name="InAppBrowser" value="CDVInAppBrowser" />
+        <plugin name="NetworkStatus" value="CDVConnection" />
     </plugins>
 
     <access origin="*" />

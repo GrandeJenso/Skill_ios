@@ -113,7 +113,7 @@
     }
 
     _imageView.image = [UIImage imageNamed:imageName];
-    _imageView.frame = CGRectMake(0, 0, _imageView.image.size.width, _imageView.image.size.height);
+    _imageView.frame = CGRectMake(0, -20, _imageView.image.size.width, _imageView.image.size.height);
 }
 
 - (void)updateSplashScreenWithState:(int)state
