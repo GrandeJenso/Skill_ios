@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport"  content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+        
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/ios/styles.css" />
+        <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/iscroll.js"></script>
+        <script src="js/jquery.mobile.iscrollview.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.iscrollview-pull.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.iscrollview.css" />
+        
+        <script>
+            // all dialog buttons should close their parent dialog
+            $(".ui-dialog button").live("click", function() {
+                                        $("[data-role='dialog']").dialog("close");
+                                        });
+            $(document).on("mobileinit", function(){
+                           $.mobile.defaultPageTransition = "slide";
+                           });
+        </script>
+        
+        <style>
+            #footerTabs {
+                background: #FFF -webkit-radial-gradient(circle, #FFF, #dee2e4);
+            }
+            .ui-listview sup {
+                font-size: 0.6em;
+                color: #cc0000;
+            }
+        </style>
+
+        
+        <title>Skill</title>
+        
+    </head>
+    <body>
+        <!-- JOBS PAGE STARTS HERE -->
+        <div data-role="page" id="jobs">
+            
+            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
+                <h1>Lediga jobb</h1>
+                <a href="#" data-rel="back" data-theme="a">Back</a>
+            </div><!-- /header -->
+            
+            <div data-role="content" class="wrapper" data-iscroll>
+                <ul data-role="listview" id="job">
+                    
+                </ul>
+            </div>
+            
+            
+            
+            <!-- Footer starts here -->
+            <div data-role ="footer" data-position="fixed" data-tap-toggle="false" data-id="foo1">
+                <div data-role="navbar">
+                    <ul>
+                        <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
+                        <li><a href="#" id="jobs_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Lediga jobb</a></li>
+                        <li><a href="#settings" id="settings_tab" data-icon="custom">Inst&#228;llningar</a></li>
+                        <li><a href="#about" id="info_tab" data-icon="custom">Om oss</a></li>
+                        <li><a href="#tips" id="tips_tab" data-icon="custom">Tips</a></li>
+                    </ul>
+                </div>
+            </div><!-- /footer -->
+            
+        </div>
+        <!-- JOBS PAGE ENDS HERE -->
+        
+        <!-- SETTINGS PAGE STARTS HERE -->
+        
+        <div data-role="page" id="settings">
+            
+            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
+                <h1>Inst&#228;llningar</h1>
+            </div><!-- /header -->
+            
+            <div data-role="content" class="wrapper" data-iscroll>
+                <ul data-role="listview" id="job">
+                    
+                </ul>
+            </div>
+            
+            
+            
+            <!-- Footer starts here -->
+            <div data-role ="footer" data-position="fixed" data-tap-toggle="false" data-id="foo1">
+                <div data-role="navbar">
+                    <ul>
+                        <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
+                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" >Lediga jobb</a></li>
+                        <li><a href="#" id="settings_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Inst&#228;llningar</a></li>
+                        <li><a href="#about" id="info_tab" data-icon="custom" >Om oss</a></li>
+                        <li><a href="#tips" id="tips_tab" data-icon="custom">Tips</a></li>
+                    </ul>
+                </div>
+            </div><!-- /footer -->
+            
+        </div>
+        
+        <!-- SETTINGS PAGE ENDS HERE -->
+        
+        <!-- ABOUT PAGE STARTS HERE -->
+        
+        <div data-role="page" id="about">
+            
+            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
+                <h1>Om oss</h1>
+            </div><!-- /header -->
+            
+            <div data-role="content" class="wrapper" data-iscroll>
+                <ul data-role="listview" id="job">
+                    
+                </ul>
+            </div>
+            
+            
+            
+            <!-- Footer starts here -->
+            <div data-role ="footer" data-position="fixed" data-tap-toggle="false" data-id="foo1">
+                <div data-role="navbar">
+                    <ul>
+                        <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
+                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" >Lediga jobb</a></li>
+                        <li><a href="#settings" id="settings_tab" data-icon="custom">Inst&#228;llningar</a></li>
+                        <li><a href="#" id="info_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Om oss</a></li>
+                        <li><a href="#tips" id="tips_tab" data-icon="custom" >Tips</a></li>
+                    </ul>
+                </div>
+            </div><!-- /footer -->
+            
+        </div>
+        
+        <!-- ABOUT PAGE ENDS HERE -->
+        
+        <!-- TIPS PAGE STARTS HERE -->
+        
+        <div data-role="page" id="tips">
+            
+            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
+                <h1>Tips</h1>
+            </div><!-- /header -->
+            
+            <div data-role="content" class="wrapper" data-iscroll>
+                <ul data-role="listview" id="job">
+                    
+                </ul>
+            </div>
+            
+            
+            
+            <!-- Footer starts here -->
+            <div data-role ="footer" data-position="fixed" data-tap-toggle="false" data-id="foo1">
+                <div data-role="navbar">
+                    <ul>
+                        <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
+                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" >Lediga jobb</a></li>
+                        <li><a href="#settings" id="settings_tab" data-icon="custom">Inst&#228;llningar</a></li>
+                        <li><a href="#about" id="info_tab" data-icon="custom">Om oss</a></li>
+                        <li><a href="#" id="tips_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Tips</a></li>
+                    </ul>
+                </div>
+            </div><!-- /footer -->
+            
+        </div>
+        
+        <!-- TIPS PAGE ENDS HERE -->
+        
+        <script type="text/javascript" src="cordova-2.5.0.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+            </script>
+        
+    </body></html>
