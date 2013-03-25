@@ -16,6 +16,44 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+
+$(document).on("mobileinit", function(){
+               $.mobile.defaultPageTransition = "slide";
+               // Setting #container div as a jqm pageContainer
+               $.mobile.pageContainer = $('#container');
+               });
+$(function() {
+  $("#no_internet #refresh_button").click(function(){
+                                          if(!navigator.onLine)
+                                          {
+                                          alert("No connection to internet");
+                                          }
+                                          else
+                                          {
+                                          $.mobile.changePage("#jobs",{ transition: "none"});
+                                          }
+                                          });
+  });
+
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// Cordova is loaded and it is now safe to make calls Cordova methods
+//
+function onDeviceReady() {
+    checkConnection();
+}
+
+function checkConnection() {
+    if(!navigator.onLine)
+    {
+        alert("No connection to internet");
+        $.mobile.changePage("#no_internet",{ transition: "none"});
+    }
+}
+
+
+
 var app = {
     // Application Constructor
     initialize: function() {
