@@ -114,3 +114,51 @@ h1 {
 }
 
 
+            body {
+                /* Setting body margins to 0 to have proper positioning of #container div */
+                margin: 0;
+            }
+            
+            /* #container div with absolute position and 100% width and height so it takes up whole window */
+            #container {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+            
+            
+                        #footerTabs {
+                background: #FFF -webkit-radial-gradient(circle, #FFF, #dee2e4);
+            }
+            .ui-listview sup {
+                font-size: 0.6em;
+                color: #cc0000;
+            }
+            
+.listelement
+{
+    position: relative;
+}
+.listelement img {
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin:auto;
+}
+
+.listelement .ui-li-heading{
+position: relative;
+    white-space: normal;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.ui-li-desc{
+position: absolute; 
+    bottom: 0;
+    font-size:9px;
+}
+            
+            
+
+

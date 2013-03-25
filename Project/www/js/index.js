@@ -36,6 +36,42 @@ $(function() {
                                           });
   });
 
+
+$(document).on('pageshow', "#jobs", function()
+               {
+               var jobs_div = $('div.wrapper ul#job');
+               jobs_div.text('');
+               $.mobile.loading('show');
+               $.ajax({
+                      type: "GET",
+                      url: "http://cv.skill.se/cv/rss.jsp?format=mtrxml&allads=1",
+                      dataType: "xml",
+                      success: parseXml
+                      });
+               
+               
+               function parseXml(xml)
+               {
+               
+               xml_all=xml;
+               //find every Tutorial and print the author
+               $(xml).find("job").each(function()
+                                       {
+                                       var img = $(this).find('logo link').attr('href');
+                                       var title = $(this).find('title').text();
+                                       var id = $(this).attr('id');
+                                       var date = $(this).find('pubDate').text();
+                                       var location = $(this).find('location').text();
+                                       var area = $(this).find('area').text();
+                                       var assignment_type = $(this).find('assignmentType').text();
+                                       
+                                       jobs_div.append('<li class="listelement" data-id= "' + id + '" ><a data-transition="slide"><img src="' + img +'" class="ui-li-thumb"><p class="ui-li-heading">' + title + '</p><p class="ui-li-desc">'+area+','+assignment_type+'</br>' +location+', '+date+'</p></a></li>');
+                                       });
+               $('div.wrapper ul#job').listview("refresh");
+               $.mobile.loading('hide');
+               }
+});
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 // Cordova is loaded and it is now safe to make calls Cordova methods
