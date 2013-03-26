@@ -23,7 +23,7 @@ $(document).on("mobileinit", function(){
                // Setting #container div as a jqm pageContainer
                $.mobile.pageContainer = $('#container');
                });
-$(function() {
+/*$(function() {
   $("#no_internet #refresh_button").click(function(){
                                           if(!navigator.onLine)
                                           {
@@ -34,7 +34,7 @@ $(function() {
                                           $.mobile.changePage("#jobs",{ transition: "none"});
                                           }
                                           });
-  });
+  });*/
 
 
 $(document).on('pageshow', "#jobs", function()
@@ -46,7 +46,8 @@ $(document).on('pageshow', "#jobs", function()
                       type: "GET",
                       url: "http://cv.skill.se/cv/rss.jsp?format=mtrxml&allads=1",
                       dataType: "xml",
-                      success: parseXml
+                      success: parseXml,
+                      error: errorMessage
                       });
                
                
@@ -70,9 +71,14 @@ $(document).on('pageshow', "#jobs", function()
                $('div.wrapper ul#job').listview("refresh");
                $.mobile.loading('hide');
                }
+               
+               function errorMessage(error)
+               {
+                    alert('Du måste vara uppkopplad på internet för att se denna del av appen.');
+               }
 });
 
-document.addEventListener("deviceready", onDeviceReady, false);
+/*document.addEventListener("deviceready", onDeviceReady, false);
 
 // Cordova is loaded and it is now safe to make calls Cordova methods
 //
@@ -86,7 +92,7 @@ function checkConnection() {
         alert("No connection to internet");
         $.mobile.changePage("#no_internet",{ transition: "none"});
     }
-}
+}*/
 
 
 
