@@ -158,7 +158,9 @@ position: absolute;
     bottom: 0;
     font-size:9px;
 }
-            
-            
+
+#detailed_job_content ul{
+    padding:0px;
+}
 
 
