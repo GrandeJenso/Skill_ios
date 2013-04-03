@@ -18,17 +18,37 @@
  */
 document.addEventListener("deviceready", onDeviceReady, false);
 
+function preload(arrayOfImages) {
+    $(arrayOfImages).each(function(){
+                          $('<img/>')[0].src = this;
+                          });
+}
+
 var xml_all;
 var detailed_div;
 var job_id;
+var link;
+var myScroll;
+var image_array=new Array();
 
 $(document).on('pageinit',"body",function()
                {
                 detailed_div=$("div#detailed_job_content ul");
+               preload([
+                        'css/ios/images/info_blue.png',
+                        'css/ios/images/info_dark.png',
+                        'css/ios/images/jobs_blue.png',
+                        'css/ios/images/jobs_dark.png',
+                        'css/ios/images/settings_blue.png',
+                        'css/ios/images/settings_dark.png',
+                        'css/ios/images/tips_blue.png',
+                        'css/ios/images/tips_dark.png'
+                        ]);
                });
 
-$(document).on('pageshow', "#jobs", function()
+$(document).on('pagebeforeshow', "#jobs", function()
                {
+               preload(image_array);
                if(!xml_all)
                {
                var jobs_div = $('div#jobs_content ul#job');
@@ -40,7 +60,6 @@ $(document).on('pageshow', "#jobs", function()
                       success: parseXml,
                       error: errorMessage
                       });
-               
                }
                function parseXml(xml)
                {
@@ -50,6 +69,7 @@ $(document).on('pageshow', "#jobs", function()
                $(xml).find("job").each(function()
                                        {
                                        var img = $(this).find('logo link').attr('href');
+                                       image_array.push(img);
                                        var title = $(this).find('title').text();
                                        var id = $(this).attr('id');
                                        var date = $(this).find('pubDate').text();
@@ -61,21 +81,26 @@ $(document).on('pageshow', "#jobs", function()
                                        });
                $('div#jobs_content ul#job').listview('refresh');
                
+                preload(image_array);
+               
+               
+               
                $('li.listelement').click(function(){
-                                         
                                         detailed_div.text('');
                                         job_id = $(this).data('id');
                                          var job = $(xml_all).find("job[id="+job_id+"]")
                                          var title = job.find('title').text();
                                          var company = job.find('company name').text();
                                          var description = job.find('description').text();
-                                         var link = job.find('applicationMethods link').attr('href');
+                                         var img = job.find('logo link').attr('href');
+                                         
+                                         link = job.find('applicationMethods link').attr('href');
                                          $('#detailed_job_view div.header h1').html(company);
-                                         detailed_div.append("<h3>"+title+"</h3>");
-                                         detailed_div.append("<p>"+description+"</p>");
+                                         detailed_div.append('<h1 id="job_title">'+title+'</h3>');
+                                         detailed_div.append('<img src="' + img +'" id="job_image"></img>');
+                                         detailed_div.append('<div id="description">'+description+'</div>');
                                          detailed_div.append('<a data-role="button" id="job_link">Ansök</a>');
-                                            
-
+                                         $.mobile.loadPage('#detailed_job_view');
                                         $.mobile.changePage('#detailed_job_view',{transition:"slide"});
                                         
                 });
@@ -94,16 +119,32 @@ function errorMessage(error)
                                  );
 }
 
-$(document).on('pageshow', '#detailed_job_view', function()
+$(document).on('pagebeforeshow', '#detailed_job_view', function()
                {
                $('#detailed_job_content').iscrollview("refresh");
+               $('#detailed_job_content').iscrollview("scrollTo",0,0,0,false);
                $('#detailed_job_view').trigger("create");
-               $('button#job_link').click(function(){
+               
+               $('a#job_link').click(function(){
                                          ref = window.open(link,'_blank', 'location=no');
                                          
                                          
                                          });
+               $('div#description a').click(function(event)
+                                            {
+                                            
+                                            var anchor_text = $(this).text();
+                                            var charExists = (anchor_text.indexOf('@') >=0);
+                                            if(!charExists)
+                                            {
+                                                event.preventDefault();
+                                            }
+                                            
+                                            });
+               
                });
+
+
 
 // Cordova is loaded and it is now safe to make calls Cordova methods
 //
@@ -124,7 +165,6 @@ function checkConnection() {
                                      'Ingen internetanslutning',            // title
                                      'OK'                  // buttonName
                                      );
-        //$.mobile.changePage("#no_internet",{ transition: "none"});
     }
 }
 

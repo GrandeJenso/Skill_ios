@@ -20,6 +20,13 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+@font-face
+{
+font-family: RotisSansSerif;
+src: url('RotisSansSerif55.ttf');
+}
+
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -75,6 +82,7 @@ h1 {
     overflow:visible;
     padding:0px;
     text-align:center;
+    font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
 }
 
 .event {
@@ -163,4 +171,37 @@ position: absolute;
     padding:0px;
 }
 
+#detailed_job_content div#description h1 {
 
+font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
+font-size:20px;
+text-align:left;
+margin-bottom:0px;
+	}
+    
+    #detailed_job_content div#description p{
+
+font-family:Helvetica, Arial, Sans-Serif;
+margin-top:2px;
+margin-bottom:15px;
+	}
+
+    #detailed_job_content h1#job_title {
+
+font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
+font-size:25px;
+text-align:left;
+
+	}
+    
+    #detailed_job_content img#job_image{
+    margin-top:5px;
+    margin-bottom:5px;
+    max-width:50%;
+    }
+
+    
+    
+    
+    
+    
