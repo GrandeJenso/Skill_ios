@@ -23,7 +23,7 @@
 @font-face
 {
 font-family: RotisSansSerif;
-src: url('RotisSansSerif55.ttf');
+src: url('Fonts/RotisSansSerif55.ttf');
 }
 
 
@@ -199,7 +199,6 @@ text-align:left;
     margin-bottom:5px;
     max-width:50%;
     }
-
     
     
     

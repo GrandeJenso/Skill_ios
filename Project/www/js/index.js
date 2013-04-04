@@ -18,22 +18,62 @@
  */
 document.addEventListener("deviceready", onDeviceReady, false);
 
+function onDeviceReady() {
+    checkConnection();
+    
+}
+
+//kollar om det finns anslutning till internet
+function checkConnection() {
+    
+    if(!navigator.onLine)
+    {
+        navigator.notification.alert(
+                                     'Du måste vara ansluten till internet för att se denna del av applikationen',  // message
+                                     alertDismissed,         // callback
+                                     'Ingen internetanslutning',            // title
+                                     'OK'                  // buttonName
+                                     );
+    }
+}
+
+//Om det inte går att hämta xml
+function errorMessage(error)
+{
+    navigator.notification.alert(
+                                 'Du måste vara ansluten till internet för att se denna del av applikationen',  // message
+                                 alertDismissed,         // callback
+                                 'Ingen internetanslutning',            // title
+                                 'OK'                  // buttonName
+                                 );
+}
+
+function alertDismissed()
+{
+    $.mobile.showPageLoadingMsg();
+}
+
+
+
+//Laddar alla bilder
 function preload(arrayOfImages) {
     $(arrayOfImages).each(function(){
                           $('<img/>')[0].src = this;
                           });
 }
 
+//Globala variabler
 var xml_all;
 var detailed_div;
 var job_id;
 var link;
-var myScroll;
 var image_array=new Array();
 
 $(document).on('pageinit',"body",function()
                {
                 detailed_div=$("div#detailed_job_content ul");
+               
+               //Laddar alla ikoner som finns i header
                preload([
                         'css/ios/images/info_blue.png',
                         'css/ios/images/info_dark.png',
@@ -48,11 +88,15 @@ $(document).on('pageinit',"body",function()
 
 $(document).on('pagebeforeshow', "#jobs", function()
                {
+               //Laddar alla bilder från xml
                preload(image_array);
                if(!xml_all)
                {
+               //Tömmer diven med alla jobben
                var jobs_div = $('div#jobs_content ul#job');
                jobs_div.text('');
+               
+               //Hämtar xml med alla jobb
                $.ajax({
                       type: "GET",
                       url: "http://cv.skill.se/cv/rss.jsp?format=mtrxml&allads=1&fullad=1",
@@ -61,15 +105,18 @@ $(document).on('pagebeforeshow', "#jobs", function()
                       error: errorMessage
                       });
                }
+               
+               //Lägger till alla jobb i listan från xml
                function parseXml(xml)
                {
-               
+               $.mobile.hidePageLoadingMsg();
                xml_all=xml;
-               //find every Tutorial and print the author
                $(xml).find("job").each(function()
                                        {
                                        var img = $(this).find('logo link').attr('href');
+                                       //Lägger till alla bilder från xml till en array för att preloadas
                                        image_array.push(img);
+                                       
                                        var title = $(this).find('title').text();
                                        var id = $(this).attr('id');
                                        var date = $(this).find('pubDate').text();
@@ -77,14 +124,18 @@ $(document).on('pagebeforeshow', "#jobs", function()
                                        var area = $(this).find('area').text();
                                        var assignment_type = $(this).find('assignmentType').text();
                                        
+                                       //Lägger till listelementen
                                        jobs_div.append('<li class="listelement" data-id= "' + id + '" ><a data-transition="slide" ><img src="' + img +'" class="ui-li-thumb"><p class="ui-li-heading">' + title + '</p><p class="ui-li-desc">'+area+','+assignment_type+'</br>' +location+', '+date+'</p></a></li>');
                                        });
+               
+               //Updaterar listan
                $('div#jobs_content ul#job').listview('refresh');
                
-                preload(image_array);
+               //Laddar alla bilder från xml
+               preload(image_array);
                
                
-               
+               //Klicka på jobben i listan
                $('li.listelement').click(function(){
                                         detailed_div.text('');
                                         job_id = $(this).data('id');
@@ -96,7 +147,7 @@ $(document).on('pagebeforeshow', "#jobs", function()
                                          
                                          link = job.find('applicationMethods link').attr('href');
                                          $('#detailed_job_view div.header h1').html(company);
-                                         detailed_div.append('<h1 id="job_title">'+title+'</h3>');
+                                         detailed_div.append('<h1 id="job_title">'+title+'</h1>');
                                          detailed_div.append('<img src="' + img +'" id="job_image"></img>');
                                          detailed_div.append('<div id="description">'+description+'</div>');
                                          detailed_div.append('<a data-role="button" id="job_link">Ansök</a>');
@@ -109,64 +160,34 @@ $(document).on('pagebeforeshow', "#jobs", function()
 });
 
 
-function errorMessage(error)
-{
-    navigator.notification.alert(
-                                 'Du måste vara ansluten till internet för att se denna del av applikationen',  // message
-                                 alertDismissed,         // callback
-                                 'Ingen internetanslutning',            // title
-                                 'OK'                  // buttonName
-                                 );
-}
+
 
 $(document).on('pagebeforeshow', '#detailed_job_view', function()
                {
+               
+               //Updaterar innehållet i detaljerad jobb vy
                $('#detailed_job_content').iscrollview("refresh");
                $('#detailed_job_content').iscrollview("scrollTo",0,0,0,false);
                $('#detailed_job_view').trigger("create");
                
+               //Klicka på ansök om jobb knapp
                $('a#job_link').click(function(){
                                          ref = window.open(link,'_blank', 'location=no');
-                                         
-                                         
                                          });
+               
+               //Klicka på en länk i texten
                $('div#description a').click(function(event)
                                             {
-                                            
                                             var anchor_text = $(this).text();
                                             var charExists = (anchor_text.indexOf('@') >=0);
                                             if(!charExists)
                                             {
                                                 event.preventDefault();
                                             }
-                                            
                                             });
                
                });
 
-
-
-// Cordova is loaded and it is now safe to make calls Cordova methods
-//
-function alertDismissed(){
-    
-}
-function onDeviceReady() {
-    checkConnection();
-
-}
-
-function checkConnection() {
-    if(!navigator.onLine)
-    {
-        navigator.notification.alert(
-                                     'Du måste vara ansluten till internet för att se denna del av applikationen',  // message
-                                     alertDismissed,         // callback
-                                     'Ingen internetanslutning',            // title
-                                     'OK'                  // buttonName
-                                     );
-    }
-}
 
 
 
