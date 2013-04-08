@@ -16,10 +16,26 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
+
+    $.mobile.showPageLoadingMsg("z");
     checkConnection();
+    //Laddar alla ikoner som finns i header
+    preload([
+             'css/images/info_blue.png',
+             'css/images/info_dark.png',
+             'css/images/jobs_blue.png',
+             'css/images/jobs_dark.png',
+             'css/images/settings_blue.png',
+             'css/images/settings_dark.png',
+             'css/images/tips_blue.png',
+             'css/images/tips_dark.png',
+             'css/images/footer.png',
+             'css/images/ajax-loader.gif'
+             ]);
     
 }
 
@@ -50,7 +66,7 @@ function errorMessage(error)
 
 function alertDismissed()
 {
-    $.mobile.showPageLoadingMsg();
+    $.mobile.showPageLoadingMsg("z");
 }
 
 
@@ -68,22 +84,13 @@ var detailed_div;
 var job_id;
 var link;
 var image_array=new Array();
+var detailed_link;
+
+
 
 $(document).on('pageinit',"body",function()
                {
                 detailed_div=$("div#detailed_job_content ul");
-               
-               //Laddar alla ikoner som finns i header
-               preload([
-                        'css/ios/images/info_blue.png',
-                        'css/ios/images/info_dark.png',
-                        'css/ios/images/jobs_blue.png',
-                        'css/ios/images/jobs_dark.png',
-                        'css/ios/images/settings_blue.png',
-                        'css/ios/images/settings_dark.png',
-                        'css/ios/images/tips_blue.png',
-                        'css/ios/images/tips_dark.png'
-                        ]);
                });
 
 $(document).on('pagebeforeshow', "#jobs", function()
@@ -109,7 +116,6 @@ $(document).on('pagebeforeshow', "#jobs", function()
                //Lägger till alla jobb i listan från xml
                function parseXml(xml)
                {
-               $.mobile.hidePageLoadingMsg();
                xml_all=xml;
                $(xml).find("job").each(function()
                                        {
@@ -125,11 +131,12 @@ $(document).on('pagebeforeshow', "#jobs", function()
                                        var assignment_type = $(this).find('assignmentType').text();
                                        
                                        //Lägger till listelementen
-                                       jobs_div.append('<li class="listelement" data-id= "' + id + '" ><a data-transition="slide" ><img src="' + img +'" class="ui-li-thumb"><p class="ui-li-heading">' + title + '</p><p class="ui-li-desc">'+area+','+assignment_type+'</br>' +location+', '+date+'</p></a></li>');
+                                       jobs_div.append('<li class="listelement" data-id= "' + id + '" ><a data-transition="slide" ><img src="' + img +'" class="ui-li-thumb"><p class="ui-li-heading">' + title + '</p><p class="ui-li-desc">'+area+', '+assignment_type+'</br>' +location+', '+date+'</p></a></li>');
                                        });
                
                //Updaterar listan
                $('div#jobs_content ul#job').listview('refresh');
+               $.mobile.hidePageLoadingMsg("z");
                
                //Laddar alla bilder från xml
                preload(image_array);
@@ -139,17 +146,49 @@ $(document).on('pagebeforeshow', "#jobs", function()
                $('li.listelement').click(function(){
                                         detailed_div.text('');
                                         job_id = $(this).data('id');
-                                         var job = $(xml_all).find("job[id="+job_id+"]")
-                                         var title = job.find('title').text();
-                                         var company = job.find('company name').text();
-                                         var description = job.find('description').text();
-                                         var img = job.find('logo link').attr('href');
+                                         var detailed_job = $(xml_all).find("job[id="+job_id+"]");
+                                         var detailed_title = detailed_job.find('title').text();
+                                         var detailed_company = detailed_job.find('company name').text();
+                                         var detailed_area = detailed_job.find('area').text();
+                                         var detailed_assignment_type = detailed_job.find('assignmentType').text();
+                                         var detailed_location = detailed_job.find('location').text();
+                                         var detailed_description = detailed_job.find('description').text();
+                                         var detailed_img = detailed_job.find('logo link').attr('href');
+                                         detailed_link = detailed_job.find('applicationMethods link').attr('href');
+                                         $('#detailed_job_view div.header h1').html(detailed_company);
+                                         detailed_div.append('<h1 id="job_title">'+detailed_title+'</h1>');
+                                         detailed_div.append('<img src="' + detailed_img +'" id="job_image"></img>');
                                          
-                                         link = job.find('applicationMethods link').attr('href');
-                                         $('#detailed_job_view div.header h1').html(company);
-                                         detailed_div.append('<h1 id="job_title">'+title+'</h1>');
-                                         detailed_div.append('<img src="' + img +'" id="job_image"></img>');
-                                         detailed_div.append('<div id="description">'+description+'</div>');
+                                         detailed_div.append('<table>');
+                                         detailed_div.append('<tr>');
+                                         detailed_div.append('<td> Arbetsgivare </td> ');
+                                         detailed_div.append('<td>' +detailed_company+ '</td>');
+                                         detailed_div.append('</tr>');
+                                         detailed_div.append('<tr>');
+                                         detailed_div.append('<td> Uppdragstyp </td>');
+                                         detailed_div.append('<td>' +detailed_assignment_type+ '</td>');
+                                         detailed_div.append('</tr>');
+                                         detailed_div.append('<tr>');
+                                         detailed_div.append('<td> Område </td>');
+                                         detailed_div.append('<td>' +detailed_area+ '</td>');
+                                         detailed_div.append('</tr>');
+                                         detailed_div.append('<tr>');
+                                         detailed_div.append('<td> Ort </td>');
+                                         detailed_div.append('<td>' +detailed_location+ '</td>');
+                                         detailed_div.append('</tr>');
+                                         detailed_div.append('<tr>');
+                                         detailed_div.append('<td> Platser </td>');
+                                         detailed_div.append('<td> 2 </td>');
+                                         detailed_div.append('</tr>');
+                                         detailed_div.append('<tr>');
+                                         detailed_div.append('<td> Sista ansökningsdagen </td>');
+                                         detailed_div.append('<td> 2013-06-28 </td>');
+                                         detailed_div.append('</tr>');
+                                         detailed_div.append('</table>');
+                                         detailed_div.append('<hr/>');
+                                         
+                                         detailed_div.append('<div id="description">'+detailed_description+'</div>');
+                                         detailed_div.append('<hr/>');
                                          detailed_div.append('<a data-role="button" id="job_link">Ansök</a>');
                                          $.mobile.loadPage('#detailed_job_view');
                                         $.mobile.changePage('#detailed_job_view',{transition:"slide"});
@@ -172,7 +211,7 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                
                //Klicka på ansök om jobb knapp
                $('a#job_link').click(function(){
-                                         ref = window.open(link,'_blank', 'location=no');
+                                     ref = window.open(detailed_link,'_blank', 'location=no');
                                          });
                
                //Klicka på en länk i texten

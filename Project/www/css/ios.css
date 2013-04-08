@@ -386,7 +386,7 @@ a[data-rel='back'], .ui-header a[data-rel='back'] {
 			-moz-border-radius: 0 !important;
 			border-radius: 0 !important;
 	border: 0 none !important;
-	height: 30px;
+	height: 50px;
 }
 
 a[data-rel='back'] .ui-btn-inner {
@@ -661,45 +661,45 @@ input.ui-input-text, .ui-input-search {
 }
 	#info_tab .ui-icon {
 		background: url(images/info_dark.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
 	}
     #info_tab.ui-btn-active .ui-icon {
         background: url(images/info_blue.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
     }
     
 	#jobs_tab .ui-icon {
 		background: url(images/jobs_dark.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
 	}
     #jobs_tab.ui-btn-active .ui-icon {
         background: url(images/jobs_blue.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
     }
     
     #settings_tab .ui-icon {
 		background: url(images/settings_dark.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
 	}
     #settings_tab.ui-btn-active .ui-icon {
         background: url(images/settings_blue.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
     }
     
     #tips_tab .ui-icon {
 		background: url(images/tips_dark.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
 	}
     #tips_tab.ui-btn-active .ui-icon {
         background: url(images/tips_blue.png);
-        background-size:25px 25px;
+        background-size:24px;
         background-repeat: no-repeat;
     }
 
