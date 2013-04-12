@@ -1100,5 +1100,4 @@
  
  if (typeof exports !== 'undefined') exports.iScroll = iScroll;
  else window.iScroll = iScroll;
- 
  })(window, document);

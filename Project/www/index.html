@@ -114,6 +114,74 @@
             </div><!-- /header -->
             
             <div data-role="content" class="wrapper" data-iscroll>
+                <ul>
+                    <label for="slider">Pushnotiser</label>
+                    <select name="slider" id="slider" data-role="slider">
+                        <option value="off" id="off">Av</option>
+                        <option value="on" id ="on" selected>På</option>
+                    </select>
+                    <hr/>
+                    <div id="toggle_push">
+                    <div id ="placement">
+                    <fieldset data-role="controlgroup" id="field">
+                        <legend>Placering: </legend>
+                        <input type="checkbox" class="checkbox_group" name="checkbox-1a" id="checkbox-1a" value="Östergötlands län">
+                            <label for="checkbox-1a">Östergötlands län</label>
+                            <input type="checkbox" class="checkbox_group" name="checkbox-2a" id="checkbox-2a" value="Jönköpings län">
+                                <label for="checkbox-2a">Jönköpings län</label>
+                                <input type="checkbox" class="checkbox_group" name="checkbox-3a" id="checkbox-3a" value="Stockholms län">
+                                    <label for="checkbox-3a">Stockholms län</label>
+                                    <input type="checkbox" class="checkbox_group" name="checkbox-4a" id="checkbox-4a" value="Örebro län">
+                                        <label for="checkbox-4a">Örebro län</label>
+                                        <input type="checkbox" class="checkbox_group" name="checkbox-5a" id="checkbox-5a" value="Västra Götalands län">
+                                            <label for="checkbox-5a">Västra Götalands län</label>
+                                            <input type="checkbox" class="checkbox_group" name="checkbox-6a" id="checkbox-6a" value="Övriga">
+                                                <label for="checkbox-6a">Övriga</label>
+                                                </fieldset>
+                        </div>
+                        <div id="area">
+                    <hr/>
+                    <fieldset data-role="controlgroup">
+                        <legend>Område:</legend>
+                        <input type="checkbox" class="checkbox_group" name="checkbox-1b" id="checkbox-1b" value="Marknad/kommunikation">
+                            <label for="checkbox-1b">Marknad/kommunikation</label>
+                            <input type="checkbox" class="checkbox_group" name="checkbox-2b" id="checkbox-2b" value="Teknik/data">
+                                <label for="checkbox-2b">Teknik/data</label>
+                                <input type="checkbox" class="checkbox_group" name="checkbox-3b" id="checkbox-3b" value="Ekonomi/juridik">
+                                    <label for="checkbox-3b">Ekonomi/juridik</label>
+                                    <input type="checkbox" class="checkbox_group" name="checkbox-4b" id="checkbox-4b" value="Samhälle/humaniora/beteendevetenskap">
+                                        <label for="checkbox-4b">Samhälle/humaniora/beteendevetenskap</label>
+                                        <input type="checkbox" class="checkbox_group" name="checkbox-5b" id="checkbox-5b" value="Sommarjobb">
+                                            <label for="checkbox-5b">Sommarjobb</label>
+                                            <input type="checkbox" class="checkbox_group" name="checkbox-6b" id="checkbox-6b" value="Lärare/pedagogik">
+                                                <label for="checkbox-6b">Lärare/pedagogik</label>
+                                                <input type="checkbox" class="checkbox_group" name="checkbox-7b" id="checkbox-7b" value="Matematik/statistik">
+                                                    <label for="checkbox-7b">Matematik/statistik</label>
+                                                    <input type="checkbox" class="checkbox_group" name="checkbox-8b" id="checkbox-8b" value="Medicin/vård">
+                                                        <label for="checkbox-8b">Medicin/vård</label>
+                                                        </fieldset>
+                            </div>
+                        <div id="assignment_type">
+                    <hr/>
+                    <fieldset data-role="controlgroup">
+                        <legend>Uppdragstyp:</legend>
+                        <input type="checkbox" class="checkbox_group" name="checkbox-1c" id="checkbox-1c" value="Hyrrekrytering">
+                            <label for="checkbox-1c">Hyrrekrytering</label>
+                            <input type="checkbox" class="checkbox_group" name="checkbox-2c" id="checkbox-2c" value="Rekrytering">
+                                <label for="checkbox-2c">Rekrytering</label>
+                                <input type="checkbox" class="checkbox_group" name="checkbox-3c" id="checkbox-3c" value="Sommarjobb">
+                                    <label for="checkbox-3c">Sommarjobb</label>
+                                    <input type="checkbox" class="checkbox_group" name="checkbox-4c" id="checkbox-4c" value="Uthyrning">
+                                        <label for="checkbox-4c">Uthyrning</label>
+                                        <input type="checkbox" class="checkbox_group" name="checkbox-5c" id="checkbox-5c" value="Undersökning">
+                                            <label for="checkbox-5c">Undersökning</label>
+                                            
+                                            </fieldset>
+                                                </div>
+                    <hr/>
+                                                </div>
+                    <a data-role="button" data-theme="g" id="save_settings">Spara Inställningar</a>
+                </ul>
             </div>
             
             
@@ -210,6 +278,91 @@
         </div>
         
         <!-- NO_INTERNET PAGE ENDS HERE -->
+            
+            <!-- FIRST TIME VIEW STARTS HERE -->
+            <div data-role="page" id="first_time_view">
+                
+                <div data-role="content" class="wrapper" id="first_time_view_content" data-iscroll>
+                    <ul>
+                        <div id="welcome">
+                            <h1>Välkommen till Skills app!</h1>
+                            <p>Här kan du hitta ditt nya drömjobb. Genom att tacka ja till Pushnotiser kan du snabbt upptäcka nya jobb som passar just dig.</p>
+                            <hr/>
+                            
+                            <label for="slider">Pushnotiser</label>
+                            <select name="slider" id="slider" data-role="slider">
+                                <option value="off">Av</option>
+                                <option value="on" selected>På</option>
+                            </select>
+                             <img id="it-talang" src="css/images/dromkandidater.png"/>
+                            <a data-role="button" data-theme="g" id="welcome_continue" class="continue_button"  data-inline="true">Fortsätt</a>
+                            
+                        </div>
+                        <div id="placement">
+                            <fieldset data-role="controlgroup">
+                                <legend>Placering: </legend>
+                                <input type="checkbox" class="checkbox_group" name="checkbox-1a" id="checkbox-1a" value="Östergötlands län">
+                                    <label for="checkbox-1a">Östergötlands län</label>
+                                    <input type="checkbox" class="checkbox_group" name="checkbox-2a" id="checkbox-2a" value="Jönköpings län">
+                                        <label for="checkbox-2a">Jönköpings län</label>
+                                        <input type="checkbox" class="checkbox_group" name="checkbox-3a" id="checkbox-3a" value="Stockholms län">
+                                            <label for="checkbox-3a">Stockholms län</label>
+                                            <input type="checkbox" class="checkbox_group" name="checkbox-4a" id="checkbox-4a" value="Örebro län">
+                                                <label for="checkbox-4a">Örebro län</label>
+                                                <input type="checkbox" class="checkbox_group" name="checkbox-5a" id="checkbox-5a" value="Västra Götalands län">
+                                                    <label for="checkbox-5a">Västra Götalands län</label>
+                                                    <input type="checkbox" class="checkbox_group" name="checkbox-6a" id="checkbox-6a" value="Övriga">
+                                                        <label for="checkbox-6a">Övriga</label>
+                                                        </fieldset>
+                            <a data-role="button" data-theme="g" id="placement_continue" class="continue_button"  data-inline="true">Fortsätt</a>
+                        </div>
+                        
+                        <div id="area">
+                            <fieldset data-role="controlgroup">
+                                <legend>Område:</legend>
+                                <input type="checkbox" class="checkbox_group" name="checkbox-1b" id="checkbox-1b" value="Marknad/kommunikation">
+                                    <label for="checkbox-1b">Marknad/kommunikation</label>
+                                    <input type="checkbox" class="checkbox_group" name="checkbox-2b" id="checkbox-2b" value="Teknik/data">
+                                        <label for="checkbox-2b">Teknik/data</label>
+                                        <input type="checkbox" class="checkbox_group" name="checkbox-3b" id="checkbox-3b" value="Ekonomi/juridik">
+                                            <label for="checkbox-3b">Ekonomi/juridik</label>
+                                            <input type="checkbox" class="checkbox_group" name="checkbox-4b" id="checkbox-4b" value="Samhälle/humaniora/beteendevetenskap">
+                                                <label for="checkbox-4b">Samhälle/humaniora/beteendevetenskap</label>
+                                                <input type="checkbox" class="checkbox_group" name="checkbox-5b" id="checkbox-5b" value="Sommarjobb">
+                                                    <label for="checkbox-5b">Sommarjobb</label>
+                                                    <input type="checkbox" class="checkbox_group" name="checkbox-6b" id="checkbox-6b" value="Lärare/pedagogik">
+                                                        <label for="checkbox-6b">Lärare/pedagogik</label>
+                                                        <input type="checkbox" class="checkbox_group" name="checkbox-7b" id="checkbox-7b" value="Matematik/statistik">
+                                                            <label for="checkbox-7b">Matematik/statistik</label>
+                                                            <input type="checkbox" class="checkbox_group" name="checkbox-8b" id="checkbox-8b" value="Medicin/vård">
+                                                                <label for="checkbox-8b">Medicin/vård</label>
+                                                                </fieldset>
+                            <a data-role="button" data-theme="g" id="area_continue" class="continue_button"  data-inline="true">Fortsätt</a>
+                        </div>
+                        
+                        
+                        <div id="assignment_type">
+                            <fieldset data-role="controlgroup">
+                                <legend>Uppdragstyp:</legend>
+                                <input type="checkbox" class="checkbox_group" name="checkbox-1c" id="checkbox-1c" value="Hyrrekrytering">
+                                    <label for="checkbox-1c">Hyrrekrytering</label>
+                                    <input type="checkbox" class="checkbox_group" name="checkbox-2c" id="checkbox-2c" value="Rekrytering">
+                                        <label for="checkbox-2c">Rekrytering</label>
+                                        <input type="checkbox" class="checkbox_group" name="checkbox-3c" id="checkbox-3c" value="Sommarjobb">
+                                            <label for="checkbox-3c">Sommarjobb</label>
+                                            <input type="checkbox" class="checkbox_group" name="checkbox-4c" id="checkbox-4c" value="Uthyrning">
+                                                <label for="checkbox-4c">Uthyrning</label>
+                                                <input type="checkbox" class="checkbox_group" name="checkbox-5c" id="checkbox-5c" value="Undersökning">
+                                                    <label for="checkbox-5c">Undersökning</label>
+                                                    
+                                                    </fieldset>
+                            <a data-role="button" data-theme="g" id="assignment_type_continue" class="continue_button"  data-inline="true">Fortsätt</a>
+                        </div>
+                    </ul>
+                </div>
+                
+            </div>
+            <!-- FIRST TIME VIEW ENDS HERE -->
         
         </div>
         <script type="text/javascript">

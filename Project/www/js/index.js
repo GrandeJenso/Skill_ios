@@ -18,11 +18,15 @@
  */
 
 document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("resume", onResume, false);
 
 function onDeviceReady() {
-
-    $.mobile.showPageLoadingMsg("z");
     checkConnection();
+    
+    if(!((settings_array = JSON.parse(db.getItem("settings"))) && (push_boolean = db.getItem("push_boolean"))))
+    {
+        $.mobile.changePage("#first_time_view",{ transition: "none"});
+    }
     //Laddar alla ikoner som finns i header
     preload([
              'css/images/info_blue.png',
@@ -37,7 +41,55 @@ function onDeviceReady() {
              'css/images/ajax-loader.gif'
              ]);
     
+    detailed_div=$("div#detailed_job_content ul");
+    
+    $.mobile.loadPage("#settings");
+    $.mobile.loadPage("#about");
+    $.mobile.loadPage("#tips");
+    
+    if(push_boolean = localStorage.getItem("push_boolean"));
+    {
+        if(push_boolean=="false")
+        {
+            $('#settings #slider').val('off');
+            $('#settings #slider').slider('refresh');
+            $('#toggle_push').toggle();
+        }
+    }
+    if(settings_array = JSON.parse(localStorage.getItem("settings")))
+    {
+        $.each(settings_array, function(index,value)
+               {
+               $('input[value="'+value+'"]').attr("checked","");
+               });     
+    }
+    $('#settings').trigger("create");
+    setTimeout(function() {
+               navigator.splashscreen.hide();
+               },2000);
 }
+
+function onResume()
+{
+    checkConnection();
+    alert("resume");
+    preload(image_array);
+    
+    preload([
+             'css/images/info_blue.png',
+             'css/images/info_dark.png',
+             'css/images/jobs_blue.png',
+             'css/images/jobs_dark.png',
+             'css/images/settings_blue.png',
+             'css/images/settings_dark.png',
+             'css/images/tips_blue.png',
+             'css/images/tips_dark.png',
+             'css/images/footer.png',
+             'css/images/ajax-loader.gif'
+             ]);
+    
+}
+
 
 //kollar om det finns anslutning till internet
 function checkConnection() {
@@ -69,8 +121,6 @@ function alertDismissed()
     $.mobile.showPageLoadingMsg("z");
 }
 
-
-
 //Laddar alla bilder
 function preload(arrayOfImages) {
     $(arrayOfImages).each(function(){
@@ -85,12 +135,70 @@ var job_id;
 var link;
 var image_array=new Array();
 var detailed_link;
+var device_token;
+var settings_array = new Array();
+var db = window.localStorage;
+var push_boolean;
 
-
-
-$(document).on('pageinit',"body",function()
+$(document).on('pageinit', "#settings", function()
                {
-                detailed_div=$("div#detailed_job_content ul");
+               var settings_array = new Array();
+               
+               $('#settings #slider').bind("change",function()
+                                  {
+                                 $("#toggle_push").toggle();
+                                 $('#settings').trigger("create");
+                                  });
+               $('div#settings a#save_settings').mousedown(function()
+                                                       {
+                                                        if($("#settings #slider").val()=="on")
+                                                           {
+                                                           push_boolean = true;
+                                                           
+                                                           settings_array = $('input:checkbox:checked.checkbox_group').map(function ()
+                                                                                                                       {
+                                                                                                                       return this.value;
+                                                                                                                       }).get();
+                                                           }
+                                                        else
+                                                           {
+                                                           push_boolean = false;
+                                                           settings_array=new Array();
+                                                           }
+                                                       if(device_token.length>0)
+                                                       {
+                                                       $.ajax({
+                                                              type: 'POST',
+                                                              data: {"device_token":device_token,"prenum_array":settings_array} ,
+                                                              url: 'http://pervelander.se/examensarbete/post_prenum_ios.php',
+                                                              success: function(data){
+                                                              console.log(data);
+                                                              navigator.notification.alert(
+                                                                                           'Dina inställningar sparades',
+                                                                                           null,
+                                                                                           'Inställningar',
+                                                                                           'OK'
+                                                                                           );
+                                                              },
+                                                              error: function(){
+                                                              console.log(data);
+                                                              navigator.notification.alert(
+                                                                                           'Det gick ej att spara dina inställningar',
+                                                                                           null,
+                                                                                           'Inställningar',
+                                                                                           'OK'
+                                                                                           );
+                                                              }
+                                                              });
+                                                           db.setItem("settings",JSON.stringify(settings_array));
+                                                           db.setItem("push_boolean",push_boolean);
+                                                       }
+                                                       
+                                                       
+                                                       });
+               
+               
+               
                });
 
 $(document).on('pagebeforeshow', "#jobs", function()
@@ -210,7 +318,7 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                $('#detailed_job_view').trigger("create");
                
                //Klicka på ansök om jobb knapp
-               $('a#job_link').click(function(){
+               $('a#job_link').mousedown(function(){
                                      ref = window.open(detailed_link,'_blank', 'location=no');
                                          });
                
@@ -226,6 +334,89 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                                             });
                
                });
+
+$(document).on('pagebeforeshow', "#first_time_view", function()
+               {
+               var placement_div = $('#first_time_view #placement');
+               var area_div = $('#first_time_view #area');
+               var assignment_type_div = $('#first_time_view #assignment_type');
+               var welcome_div = $('#first_time_view #welcome');
+               
+               placement_div.hide();
+               area_div.hide();
+               assignment_type_div.hide();
+               
+               $('#first_time_view').trigger('create');
+               
+               $('#welcome_continue').mousedown(function(event)
+                                                {
+                                                if($("#welcome #slider").val()=="off")
+                                                {
+                                                push_boolean = false;
+                                                db.setItem("push_boolean", push_boolean);
+                                                $('#settings #slider').val('off');
+                                                $('#settings #slider').slider('refresh');
+                                                //$('#toggle_push').toggle();
+                                                $.mobile.changePage("#jobs",{ transition: "none"});
+                                                }
+                                                else
+                                                {
+                                                push_boolean = true;
+                                                welcome_div.hide();
+                                                placement_div.show();
+                                                }
+                                                });
+               
+                $('#placement_continue').mousedown(function(event)
+                {
+                                            placement_div.hide();
+                                            area_div.show();
+                });
+
+                $('#area_continue').mousedown(function(event)
+                {
+                                              area_div.hide();
+                                              assignment_type_div.show();
+                });
+
+                $('#assignment_type_continue').mousedown(function(event)
+                {
+                                                         settings_array = $('input:checkbox:checked.checkbox_group').map(function ()
+                                                                                                                         {
+                                                                                                                         return this.value;
+                                                                                                                         }).get();
+                                                         if(device_token.length>0)
+                                                         {
+                                                         $.ajax({
+                                                                type: 'POST',
+                                                                data: {"device_token":device_token,"prenum_array":settings_array} ,
+                                                                url: 'http://pervelander.se/examensarbete/post_prenum_ios.php',
+                                                                success: function(data){
+                                                                console.log(data);
+                                                                navigator.notification.alert(
+                                                                                             'Dina inställningar sparades',
+                                                                                             null,
+                                                                                             'Inställningar',
+                                                                                             'OK'
+                                                                                             );
+                                                                },
+                                                                error: function(){
+                                                                console.log(data);
+                                                                navigator.notification.alert(
+                                                                                             'Det gick ej att spara dina inställningar',
+                                                                                             null,
+                                                                                             'Inställningar',
+                                                                                             'OK'
+                                                                                             );
+                                                                }
+                                                                });
+                                                         db.setItem("settings",JSON.stringify(settings_array));
+                                                         db.setItem("push_boolean",push_boolean);
+                                                         }
+                                                         $.mobile.changePage("#jobs",{ transition: "none"});
+
+                });
+});
 
 
 
@@ -251,6 +442,7 @@ onDeviceReady: function() {
 },
 tokenHandler:function(msg) {
     console.log("Token Handler " + msg);
+    device_token = msg;
     //alert(msg);
 },
 errorHandler:function(error) {

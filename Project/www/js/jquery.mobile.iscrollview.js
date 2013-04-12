@@ -146,7 +146,7 @@ dependency:  iScroll 4.1.9 https://github.com/cubiq/iscroll or later (4.2 provid
            target = e.target;
        while (target.nodeType !== 1) { target = target.parentNode; }
          tagName = target.tagName.toLowerCase();
-         if (tagName === "select" || tagName === "input" || tagName === "textarea") {
+         if (tagName === "select" || tagName === "input" || tagName === "textarea" || tagName === "span" || tagName === "nav") {
            return;
          }
        }
