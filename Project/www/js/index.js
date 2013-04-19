@@ -16,14 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
 document.addEventListener("deviceready", onDeviceReady, false);
 document.addEventListener("resume", onResume, false);
 
 function onDeviceReady() {
     checkConnection();
     
-    if(!((settings_array = JSON.parse(db.getItem("settings"))) && (push_boolean = db.getItem("push_boolean"))))
+    if(!((settings_array = JSON.parse(db.getItem("settings"))) || (push_boolean = db.getItem("push_boolean"))))
     {
         $.mobile.changePage("#first_time_view",{ transition: "none"});
     }
@@ -38,7 +37,8 @@ function onDeviceReady() {
              'css/images/tips_blue.png',
              'css/images/tips_dark.png',
              'css/images/footer.png',
-             'css/images/ajax-loader.gif'
+             'css/images/ajax-loader.gif',
+             'css/images/dromkandidater.png'
              ]);
     
     detailed_div=$("div#detailed_job_content ul");
@@ -46,6 +46,7 @@ function onDeviceReady() {
     $.mobile.loadPage("#settings");
     $.mobile.loadPage("#about");
     $.mobile.loadPage("#tips");
+    $.mobile.loadPage("#detailed_job_view");
     
     if(push_boolean = localStorage.getItem("push_boolean"));
     {
@@ -72,7 +73,6 @@ function onDeviceReady() {
 function onResume()
 {
     checkConnection();
-    alert("resume");
     preload(image_array);
     
     preload([
@@ -140,9 +140,16 @@ var settings_array = new Array();
 var db = window.localStorage;
 var push_boolean;
 
-$(document).on('pageinit', "#settings", function()
+$(document).on('pagebeforeshow', "#settings", function()
                {
-               var settings_array = new Array();
+               if(settings_array)
+               {
+                    $.each(settings_array, function(index,value)
+                           {
+                           $('input[value="'+value+'"]').attr("checked","");
+                           });
+                    $("#settings").trigger("create");
+               }
                
                $('#settings #slider').bind("change",function()
                                   {
@@ -155,7 +162,7 @@ $(document).on('pageinit', "#settings", function()
                                                            {
                                                            push_boolean = true;
                                                            
-                                                           settings_array = $('input:checkbox:checked.checkbox_group').map(function ()
+                                                           settings_array = $('#setting input:checkbox:checked.checkbox_group').map(function ()
                                                                                                                        {
                                                                                                                        return this.value;
                                                                                                                        }).get();
@@ -299,6 +306,11 @@ $(document).on('pagebeforeshow', "#jobs", function()
                                          detailed_div.append('<hr/>');
                                          detailed_div.append('<a data-role="button" id="job_link">Ansök</a>');
                                          $.mobile.loadPage('#detailed_job_view');
+                                         //Updaterar innehållet i detaljerad jobb vy
+                                         
+                                         $('#detailed_job_content').iscrollview("scrollTo",0,0,0,false);
+                                        $('#detailed_job_view').trigger("create");
+                                        
                                         $.mobile.changePage('#detailed_job_view',{transition:"slide"});
                                         
                 });
@@ -312,15 +324,19 @@ $(document).on('pagebeforeshow', "#jobs", function()
 $(document).on('pagebeforeshow', '#detailed_job_view', function()
                {
                
-               //Updaterar innehållet i detaljerad jobb vy
                $('#detailed_job_content').iscrollview("refresh");
-               $('#detailed_job_content').iscrollview("scrollTo",0,0,0,false);
-               $('#detailed_job_view').trigger("create");
+
                
                //Klicka på ansök om jobb knapp
                $('a#job_link').mousedown(function(){
-                                     ref = window.open(detailed_link,'_blank', 'location=no');
+                                     var ref = window.open('http://cv.skill.se/cv/assignment.jsp?id='+job_id+'&action=&previewcode=&tc=xml&i18nl=sv&i18nc=SE&i18nv=SKILL'+'&skillapp','_blank', 'location=no');
+                                         ref.addEventListener('loadstop', function(event) {
+                                                              if(event.url == "http://cv.skill.se/cv/assignment.jsp")
+                                                              {
+                                                              
+                                                              });
                                          });
+               
                
                //Klicka på en länk i texten
                $('div#description a').click(function(event)
@@ -356,7 +372,7 @@ $(document).on('pagebeforeshow', "#first_time_view", function()
                                                 db.setItem("push_boolean", push_boolean);
                                                 $('#settings #slider').val('off');
                                                 $('#settings #slider').slider('refresh');
-                                                //$('#toggle_push').toggle();
+                                                $('#toggle_push').hide();
                                                 $.mobile.changePage("#jobs",{ transition: "none"});
                                                 }
                                                 else
@@ -381,7 +397,7 @@ $(document).on('pagebeforeshow', "#first_time_view", function()
 
                 $('#assignment_type_continue').mousedown(function(event)
                 {
-                                                         settings_array = $('input:checkbox:checked.checkbox_group').map(function ()
+                                                         settings_array = $('#first_time_view input:checkbox:checked.checkbox_group').map(function ()
                                                                                                                          {
                                                                                                                          return this.value;
                                                                                                                          }).get();
@@ -412,6 +428,7 @@ $(document).on('pagebeforeshow', "#first_time_view", function()
                                                                 });
                                                          db.setItem("settings",JSON.stringify(settings_array));
                                                          db.setItem("push_boolean",push_boolean);
+
                                                          }
                                                          $.mobile.changePage("#jobs",{ transition: "none"});
 

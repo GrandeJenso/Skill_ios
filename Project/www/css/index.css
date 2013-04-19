@@ -232,7 +232,7 @@ text-indent: -900%;
     height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
 }
 
-#first_time_view p{
+#first_time_view p, #settings p{
 font-size:14px;
 font-family:Helvetica, Arial, Sans-Serif;
 }

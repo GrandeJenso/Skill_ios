@@ -648,9 +648,9 @@ input.ui-input-text, .ui-input-search {
 }
 
 .ui-footer .ui-icon-custom.ui-icon {
-	width: 25px;
-	height: 25px;
-	margin-left: -12.5px;
+	width: 24px;
+	height: 24px;
+	margin-left: -12px;
 }
 /* fixes issue #25 */
 .ui-footer .ui-icon-shadow {
