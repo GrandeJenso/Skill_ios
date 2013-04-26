@@ -65,6 +65,9 @@
     if ([[options objectForKey:@"alert"] isEqualToString:@"true"])
         notificationTypes |= UIRemoteNotificationTypeAlert;
     
+    if ([[options objectForKey:@"job_id"] isEqualToString:@"true"])
+        notificationTypes |= UIRemoteNotificationTypeAlert;
+    
     self.callback = [options objectForKey:@"ecb"];
     
     if (notificationTypes == UIRemoteNotificationTypeNone)
@@ -99,6 +102,7 @@
     NSString *pushBadge = @"disabled";
     NSString *pushAlert = @"disabled";
     NSString *pushSound = @"disabled";
+    NSString *pushJob_id = @"disabled";
     
     // Check what Registered Types are turned on. This is a bit tricky since if two are enabled, and one is off, it will return a number 2... not telling you which
     // one is actually disabled. So we are literally checking to see if rnTypes matches what is turned on, instead of by number. The "tricky" part is that the
@@ -134,6 +138,7 @@
     [results setValue:pushBadge forKey:@"pushBadge"];
     [results setValue:pushAlert forKey:@"pushAlert"];
     [results setValue:pushSound forKey:@"pushSound"];
+    [results setValue:pushJob_id forKey:@"pushJob_id"];
     
     // Get the users Device Model, Display Name, Unique ID, Token & Version Number
     UIDevice *dev = [UIDevice currentDevice];
@@ -165,6 +170,9 @@
         
         if ([notificationMessage objectForKey:@"sound"])
             [jsonStr appendFormat:@"sound:'%@',", [notificationMessage objectForKey:@"sound"]];
+        
+        if ([notificationMessage objectForKey:@"job_id"])
+            [jsonStr appendFormat:@"job_id:'%@',", [notificationMessage objectForKey:@"job_id"]];
         
         [jsonStr appendString:@"}"];
         

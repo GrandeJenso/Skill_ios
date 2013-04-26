@@ -85,7 +85,8 @@ function onResume()
              'css/images/tips_blue.png',
              'css/images/tips_dark.png',
              'css/images/footer.png',
-             'css/images/ajax-loader.gif'
+             'css/images/ajax-loader.gif',
+             'css/images/dromkandidater.png'
              ]);
     
 }
@@ -128,6 +129,14 @@ function preload(arrayOfImages) {
                           });
 }
 
+function showJobFromNotification(button_nr)
+{
+    if(button_nr == 1)
+    {
+        $.mobile.changePage('#detailed_job_view',{transition:"slide"});
+    }
+}
+
 //Globala variabler
 var xml_all;
 var detailed_div;
@@ -140,73 +149,15 @@ var settings_array = new Array();
 var db = window.localStorage;
 var push_boolean;
 
-$(document).on('pagebeforeshow', "#settings", function()
-               {
-               if(settings_array)
-               {
-                    $.each(settings_array, function(index,value)
-                           {
-                           $('input[value="'+value+'"]').attr("checked","");
-                           });
-                    $("#settings").trigger("create");
-               }
-               
-               $('#settings #slider').bind("change",function()
-                                  {
-                                 $("#toggle_push").toggle();
-                                 $('#settings').trigger("create");
-                                  });
-               $('div#settings a#save_settings').mousedown(function()
-                                                       {
-                                                        if($("#settings #slider").val()=="on")
-                                                           {
-                                                           push_boolean = true;
-                                                           
-                                                           settings_array = $('#setting input:checkbox:checked.checkbox_group').map(function ()
-                                                                                                                       {
-                                                                                                                       return this.value;
-                                                                                                                       }).get();
-                                                           }
-                                                        else
-                                                           {
-                                                           push_boolean = false;
-                                                           settings_array=new Array();
-                                                           }
-                                                       if(device_token.length>0)
-                                                       {
-                                                       $.ajax({
-                                                              type: 'POST',
-                                                              data: {"device_token":device_token,"prenum_array":settings_array} ,
-                                                              url: 'http://pervelander.se/examensarbete/post_prenum_ios.php',
-                                                              success: function(data){
-                                                              console.log(data);
-                                                              navigator.notification.alert(
-                                                                                           'Dina inställningar sparades',
-                                                                                           null,
-                                                                                           'Inställningar',
-                                                                                           'OK'
-                                                                                           );
-                                                              },
-                                                              error: function(){
-                                                              console.log(data);
-                                                              navigator.notification.alert(
-                                                                                           'Det gick ej att spara dina inställningar',
-                                                                                           null,
-                                                                                           'Inställningar',
-                                                                                           'OK'
-                                                                                           );
-                                                              }
-                                                              });
-                                                           db.setItem("settings",JSON.stringify(settings_array));
-                                                           db.setItem("push_boolean",push_boolean);
-                                                       }
-                                                       
-                                                       
-                                                       });
-               
-               
-               
-               });
+var detailed_job;
+var detailed_title;
+var detailed_company;
+var detailed_area;
+var detailed_assignment_type;
+var detailed_location;
+var detailed_positions;
+var detailed_img;
+var detailed_description;
 
 $(document).on('pagebeforeshow', "#jobs", function()
                {
@@ -221,7 +172,7 @@ $(document).on('pagebeforeshow', "#jobs", function()
                //Hämtar xml med alla jobb
                $.ajax({
                       type: "GET",
-                      url: "http://cv.skill.se/cv/rss.jsp?format=mtrxml&allads=1&fullad=1",
+                      url: "http://skill.se/rss/jobs.xml",
                       dataType: "xml",
                       success: parseXml,
                       error: errorMessage
@@ -232,25 +183,23 @@ $(document).on('pagebeforeshow', "#jobs", function()
                function parseXml(xml)
                {
                xml_all=xml;
-               $(xml).find("job").each(function()
+               $(xml).find("item").each(function()
                                        {
-                                       var img = $(this).find('logo link').attr('href');
+                                       var img = $(this).find('small_logo').text();
                                        //Lägger till alla bilder från xml till en array för att preloadas
                                        image_array.push(img);
                                        
                                        var title = $(this).find('title').text();
-                                       var id = $(this).attr('id');
+                                       var id = $(this).find('job_id').text();
                                        var date = $(this).find('pubDate').text();
-                                       var location = $(this).find('location').text();
-                                       var area = $(this).find('area').text();
-                                       var assignment_type = $(this).find('assignmentType').text();
+                                       var location = $(this).find('city').text();
+                                       var area = $(this).find('field').text();
+                                       var assignment_type = $(this).find('assignment').text();
                                        
                                        //Lägger till listelementen
                                        jobs_div.append('<li class="listelement" data-id= "' + id + '" ><a data-transition="slide" ><img src="' + img +'" class="ui-li-thumb"><p class="ui-li-heading">' + title + '</p><p class="ui-li-desc">'+area+', '+assignment_type+'</br>' +location+', '+date+'</p></a></li>');
                                        });
                
-               //Updaterar listan
-               $('div#jobs_content ul#job').listview('refresh');
                $.mobile.hidePageLoadingMsg("z");
                
                //Laddar alla bilder från xml
@@ -259,61 +208,13 @@ $(document).on('pagebeforeshow', "#jobs", function()
                
                //Klicka på jobben i listan
                $('li.listelement').click(function(){
-                                        detailed_div.text('');
-                                        job_id = $(this).data('id');
-                                         var detailed_job = $(xml_all).find("job[id="+job_id+"]");
-                                         var detailed_title = detailed_job.find('title').text();
-                                         var detailed_company = detailed_job.find('company name').text();
-                                         var detailed_area = detailed_job.find('area').text();
-                                         var detailed_assignment_type = detailed_job.find('assignmentType').text();
-                                         var detailed_location = detailed_job.find('location').text();
-                                         var detailed_description = detailed_job.find('description').text();
-                                         var detailed_img = detailed_job.find('logo link').attr('href');
-                                         detailed_link = detailed_job.find('applicationMethods link').attr('href');
-                                         $('#detailed_job_view div.header h1').html(detailed_company);
-                                         detailed_div.append('<h1 id="job_title">'+detailed_title+'</h1>');
-                                         detailed_div.append('<img src="' + detailed_img +'" id="job_image"></img>');
-                                         
-                                         detailed_div.append('<table>');
-                                         detailed_div.append('<tr>');
-                                         detailed_div.append('<td> Arbetsgivare </td> ');
-                                         detailed_div.append('<td>' +detailed_company+ '</td>');
-                                         detailed_div.append('</tr>');
-                                         detailed_div.append('<tr>');
-                                         detailed_div.append('<td> Uppdragstyp </td>');
-                                         detailed_div.append('<td>' +detailed_assignment_type+ '</td>');
-                                         detailed_div.append('</tr>');
-                                         detailed_div.append('<tr>');
-                                         detailed_div.append('<td> Område </td>');
-                                         detailed_div.append('<td>' +detailed_area+ '</td>');
-                                         detailed_div.append('</tr>');
-                                         detailed_div.append('<tr>');
-                                         detailed_div.append('<td> Ort </td>');
-                                         detailed_div.append('<td>' +detailed_location+ '</td>');
-                                         detailed_div.append('</tr>');
-                                         detailed_div.append('<tr>');
-                                         detailed_div.append('<td> Platser </td>');
-                                         detailed_div.append('<td> 2 </td>');
-                                         detailed_div.append('</tr>');
-                                         detailed_div.append('<tr>');
-                                         detailed_div.append('<td> Sista ansökningsdagen </td>');
-                                         detailed_div.append('<td> 2013-06-28 </td>');
-                                         detailed_div.append('</tr>');
-                                         detailed_div.append('</table>');
-                                         detailed_div.append('<hr/>');
-                                         
-                                         detailed_div.append('<div id="description">'+detailed_description+'</div>');
-                                         detailed_div.append('<hr/>');
-                                         detailed_div.append('<a data-role="button" id="job_link">Ansök</a>');
-                                         $.mobile.loadPage('#detailed_job_view');
-                                         //Updaterar innehållet i detaljerad jobb vy
-                                         
-                                         $('#detailed_job_content').iscrollview("scrollTo",0,0,0,false);
-                                        $('#detailed_job_view').trigger("create");
                                         
+                                        job_id = $(this).data('id');
                                         $.mobile.changePage('#detailed_job_view',{transition:"slide"});
                                         
                 });
+               //Updaterar listan
+               $('div#jobs_content ul#job').listview('refresh');
                
                }
 });
@@ -323,18 +224,59 @@ $(document).on('pagebeforeshow', "#jobs", function()
 
 $(document).on('pagebeforeshow', '#detailed_job_view', function()
                {
+               detailed_div.text('');
                
-               $('#detailed_job_content').iscrollview("refresh");
-
+               detailed_job = $(xml_all).find('item  job_id:contains("'+job_id+'")').parent();
+               detailed_title = detailed_job.find('title').text();
+               detailed_company = detailed_job.find('employer').text();
+               detailed_area = detailed_job.find('field').text();
+               detailed_assignment_type = detailed_job.find('assignment').text();
+               detailed_location = detailed_job.find('city').text();
+               detailed_positions = detailed_job.find('positions').text();
+               detailed_img = detailed_job.find('small_logo').text();
+               //preload([detailed_img]);
+               detailed_description = detailed_job.find('content\\:encoded, encoded').text();
+               
+               $('#detailed_job_view div.header h1').html(detailed_company);
+               detailed_div.append('<h1 id="job_title">'+detailed_title+'</h1>');
+               detailed_div.append('<img src="' + detailed_img +'" id="job_image"></img>');
+               
+               detailed_div.append('<table>');
+               detailed_div.append('<tr>');
+               detailed_div.append('<td> Arbetsgivare </td> ');
+               detailed_div.append('<td>' +detailed_company+ '</td>');
+               detailed_div.append('</tr>');
+               detailed_div.append('<tr>');
+               detailed_div.append('<td> Uppdragstyp </td>');
+               detailed_div.append('<td>' +detailed_assignment_type+ '</td>');
+               detailed_div.append('</tr>');
+               detailed_div.append('<tr>');
+               detailed_div.append('<td> Område </td>');
+               detailed_div.append('<td>' +detailed_area+ '</td>');
+               detailed_div.append('</tr>');
+               detailed_div.append('<tr>');
+               detailed_div.append('<td> Ort </td>');
+               detailed_div.append('<td>' +detailed_location+ '</td>');
+               detailed_div.append('</tr>');
+               detailed_div.append('<tr>');
+               detailed_div.append('<td> Platser </td>');
+               detailed_div.append('<td>'+detailed_positions+ '</td>');
+               detailed_div.append('</tr>');
+               detailed_div.append('</table>');
+               detailed_div.append('<hr/>');
+               
+               detailed_div.append('<div id="description">'+detailed_description+'</div>');
+               detailed_div.append('<hr/>');
+               detailed_div.append('<a data-role="button" id="job_link">Ansök</a>');
+               
+               //Updaterar innehållet i detaljerad jobb vy
+               $('#detailed_job_content').iscrollview("scrollTo",0,0,0,false);
+               $.mobile.loadPage('#detailed_job_view');
+            
                
                //Klicka på ansök om jobb knapp
                $('a#job_link').mousedown(function(){
                                      var ref = window.open('http://cv.skill.se/cv/assignment.jsp?id='+job_id+'&action=&previewcode=&tc=xml&i18nl=sv&i18nc=SE&i18nv=SKILL'+'&skillapp','_blank', 'location=no');
-                                         ref.addEventListener('loadstop', function(event) {
-                                                              if(event.url == "http://cv.skill.se/cv/assignment.jsp")
-                                                              {
-                                                              
-                                                              });
                                          });
                
                
@@ -348,6 +290,88 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                                                 event.preventDefault();
                                             }
                                             });
+               setTimeout(function() {
+                          $('#detailed_job_content').iscrollview("refresh");
+                          $('#detailed_job_view').trigger("create");
+                          },1000);
+               
+               
+               });
+
+$(document).on('pagebeforeshow', "#settings", function()
+               {
+               if(settings_array)
+               {
+               $.each(settings_array, function(index,value)
+                      {
+                      $('input[value="'+value+'"]').attr("checked","");
+                      });
+               $("#settings").trigger("create");
+               }
+               
+               $('#settings #slider').bind("change",function()
+                                           {
+                                           
+                                            if($(this).val() == "on")
+                                            {
+                                                $("#toggle_push").show();
+                                            }
+                                            else
+                                            {
+                                                $("#toggle_push").hide();
+                                            }
+                                            $('#settings').trigger("create");
+                                           });
+               
+               $('div#settings a#save_settings').mousedown(function()
+                                                           {
+                                                           if($("#settings #slider").val()=="on")
+                                                           {
+                                                           push_boolean = true;
+                                                           
+                                                           settings_array = $('#settings input:checkbox:checked.checkbox_group').map(function ()
+                                                                                                                                     {
+                                                                                                                                     return this.value;
+                                                                                                                                     }).get();
+                                                           }
+                                                           else
+                                                           {
+                                                           push_boolean = false;
+                                                           settings_array=new Array();
+                                                           }
+                                                           if(device_token.length>0)
+                                                           {
+                                                           $.ajax({
+                                                                  type: 'POST',
+                                                                  data: {"device_token":device_token,"prenum_array":settings_array} ,
+                                                                  url: 'http://pervelander.se/examensarbete/post_prenum_ios.php',
+                                                                  success: function(data){
+                                                                  console.log(data);
+                                                                  navigator.notification.alert(
+                                                                                               'Dina inställningar sparades',
+                                                                                               null,
+                                                                                               'Inställningar',
+                                                                                               'OK'
+                                                                                               );
+                                                                  },
+                                                                  error: function(){
+                                                                  console.log(data);
+                                                                  navigator.notification.alert(
+                                                                                               'Det gick ej att spara dina inställningar',
+                                                                                               null,
+                                                                                               'Inställningar',
+                                                                                               'OK'
+                                                                                               );
+                                                                  }
+                                                                  });
+                                                           db.setItem("settings",JSON.stringify(settings_array));
+                                                           db.setItem("push_boolean",push_boolean);
+                                                           }
+                                                           
+                                                           
+                                                           });
+               
+               
                
                });
 
@@ -433,6 +457,24 @@ $(document).on('pagebeforeshow', "#first_time_view", function()
                                                          $.mobile.changePage("#jobs",{ transition: "none"});
 
                 });
+               
+               $('#placement_back').mousedown(function(event)
+                                              {
+                                              placement_div.hide();
+                                              welcome_div.show();
+                                              });
+               
+               $('#area_back').mousedown(function(event)
+                                         {
+                                         area_div.hide();
+                                         placement_div.show();
+                                         });
+               
+               $('#assignment_back').mousedown(function(event)
+                                               {
+                                               assignment_type_div.hide();
+                                               area_div.show();
+                                               });
 });
 
 
@@ -497,7 +539,15 @@ onNotificationAPN: function(event) {
     console.log("event badge " + event.badge);
     console.log("event " + event);
     if (event.alert) {
-        navigator.notification.alert(event.alert);
+        
+        job_id=event.job_id;
+        
+        navigator.notification.confirm(
+                                     event.alert,  // message
+                                     showJobFromNotification,         // callback
+                                     'Ett nytt jobb som passar dig',            // title
+                                     'Visa,Stäng'                  // buttonName
+                                     );
     }
     if (event.badge) {
         console.log("Set badge on  " + pushNotification);

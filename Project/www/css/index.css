@@ -150,14 +150,14 @@ body {
 }
 
 .listelement .ui-li-heading{
-position: relative;
+    position: relative;
     white-space: normal;
     font-weight:bold;
     font-size:12px;
 }
 
 .ui-li-desc{
-position: absolute; 
+    position: absolute; 
     bottom: 0;
     font-size:9px;
 }
@@ -165,8 +165,14 @@ position: absolute;
 #detailed_job_content ul, #settings ul, #first_time_view ul{
     padding:0;
 }
+#jobs_content ul
+{
 
-#detailed_job_content div#description h1{
+    margin-bottom:0px;
+    padding-bottom:0px;
+}
+
+#detailed_job_content div#description h2{
 font-weight:normal;
 font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
 font-size:20px;
@@ -196,10 +202,6 @@ font-weight:normal;
     max-width:50%;
     }
     
-#detailed_job_content tr{
-
-    }
-    
 #detailed_job_content td{
     padding-right:10px;
     font-weight:bold;
@@ -217,6 +219,10 @@ hr{
 #font-load{
 font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
 text-indent: -900%;
+height:0;
+width:0;
+margin:0;
+padding:0;
 }
 
 .spinner {
@@ -239,8 +245,14 @@ font-family:Helvetica, Arial, Sans-Serif;
 
 a.continue_button{
 position:absolute;
-bottom:0;
-right:0;
+bottom:5%;
+right:3%;
+}
+
+a.back_button{
+position:absolute;
+bottom:5%;
+left:3%;
 }
 
 img#it-talang {
@@ -302,6 +314,9 @@ opacity:1;
 	font-weight: bold;
 	text-decoration: none;
 }
+
+
+
     
     
     
