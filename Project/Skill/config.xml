@@ -60,6 +60,7 @@
         <plugin name="InAppBrowser" value="CDVInAppBrowser" />
         <plugin name="Network Status" value="CDVConnection" />
         <plugin name="PushPlugin" value="PushPlugin" />
+        <plugin name="EmailComposer" value="EmailComposer" />
     </plugins>
 
     <access origin="*" />

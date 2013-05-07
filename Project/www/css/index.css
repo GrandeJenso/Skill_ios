@@ -23,8 +23,8 @@
 
 @font-face
 {
-font-family: RotisSansSerif;
-src: url('Fonts/RotisSansSerif55.ttf');
+    font-family: RotisSansSerif;
+    src: url('Fonts/RotisSansSerif55.ttf');
 }
 
 
@@ -48,7 +48,7 @@ body {
     font-size:12px;
     height:100%;
     margin: 0;
-    padding:0px;
+    padding:0;
     width:100%;
 }
 
@@ -162,38 +162,54 @@ body {
     font-size:9px;
 }
 
-#detailed_job_content ul, #settings ul, #first_time_view ul{
+#detailed_job_content ul, #settings ul, #first_time_view ul, #about_content ul{
     padding:0;
 }
+
 #jobs_content ul
 {
-
     margin-bottom:0px;
     padding-bottom:0px;
 }
 
-#detailed_job_content div#description h2{
-font-weight:normal;
-font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
-font-size:20px;
-text-align:left;
-margin-bottom:0px;
-	}
+#detailed_job_content div#description h2, div#about_content h2 {
+    font-weight:normal;
+    font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
+    font-size:20px;
+    text-align:left;
+    margin-bottom:0px;
+}
     
-    #detailed_job_content div#description p{
+#detailed_job_content div#description p, #about_text p{
+    font-family:Helvetica, Arial, Sans-Serif;
+    margin-top:2px;
+    margin-bottom:15px;
+}
+    
+#about_staff p, #about_staff h3{
+    font-family:Helvetica, Arial, Sans-Serif;
+    margin-top:2px;
+    margin-bottom:5px;
+}
 
-font-family:Helvetica, Arial, Sans-Serif;
-margin-top:2px;
-margin-bottom:15px;
-	}
+#about_staff img {
+    margin-top: 10px;
+    }
+    
+#about_staff table{
+    width:100%;
+    margin:0 auto;
+}
 
-    #detailed_job_content h1#job_title , #first_time_view h1{
+#about_staff tr td{
+    padding:10px;
+}
 
-font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
-font-size:25px;
-text-align:left;
-font-weight:normal;
-
+#detailed_job_content h1#job_title , #first_time_view h1{
+    font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
+    font-size:25px;
+    text-align:left;
+    font-weight:normal;
 	}
     
 #detailed_job_content img#job_image{
@@ -205,7 +221,6 @@ font-weight:normal;
 #detailed_job_content td{
     padding-right:10px;
     font-weight:bold;
-
     }
     
 hr{
@@ -217,12 +232,12 @@ hr{
 }
 
 #font-load{
-font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
-text-indent: -900%;
-height:0;
-width:0;
-margin:0;
-padding:0;
+    font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
+    text-indent: -900%;
+    height:0;
+    width:0;
+    margin:0;
+    padding:0;
 }
 
 .spinner {
@@ -239,20 +254,20 @@ padding:0;
 }
 
 #first_time_view p, #settings p{
-font-size:14px;
-font-family:Helvetica, Arial, Sans-Serif;
+    font-size:14px;
+    font-family:Helvetica, Arial, Sans-Serif;
 }
 
 a.continue_button{
-position:absolute;
-bottom:5%;
-right:3%;
+    position:absolute;
+    bottom:5%;
+    right:3%;
 }
 
 a.back_button{
-position:absolute;
-bottom:5%;
-left:3%;
+    position:absolute;
+    bottom:5%;
+    left:3%;
 }
 
 img#it-talang {
@@ -264,11 +279,11 @@ img#it-talang {
 
 
 .ui-loader-default{
-opacity:1;
+    opacity:1;
 }
 
 .ui-loader-verbose{
-opacity:1;
+    opacity:1;
 }
 
 .ui-btn-up-g, .ui-btn-hover-g, .ui-btn-down-g
@@ -313,6 +328,10 @@ opacity:1;
 	color: white;
 	font-weight: bold;
 	text-decoration: none;
+}
+
+#detailed_job_content ul{
+margin-bottom:75px;
 }
 
 

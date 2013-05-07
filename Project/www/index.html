@@ -23,6 +23,7 @@
         
         <script type="text/javascript" src="cordova-2.5.0.js"></script>
         <script src="js/PushNotification.js"></script>
+        <script src="js/EmailComposer.js"></script>
         <script src="js/energize-min.js"></script>
         <script src="js/index.js"></script>
         
@@ -30,14 +31,36 @@
         </script>
         
         <title>Skill</title>
-            
-            
             <div id="spinner" class="spinner" style="display:none;">
                 <img id="img-spinner" src="css/images/ajax-loader.gif" alt="Loading"/>
             </div>
         
     </head>
     <body>
+        
+        <div id="fb-root"></div>
+        <script>
+            window.fbAsyncInit = function() {
+                // init the FB JS SDK
+                FB.init({
+                        appId      : '587758617909778',                        // App ID from the app dashboard
+                        channelUrl : '//www.skill.se', // Channel file for x-domain comms
+                        status     : true,                                 // Check Facebook Login status
+                        xfbml      : true                                  // Look for social plugins on the page
+                        });
+                
+                // Additional initialization code such as adding Event Listeners goes here
+            };
+            
+            
+            (function(d, s, id) {
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) return;
+                 js = d.createElement(s); js.id = id;
+                 js.src = "//connect.facebook.net/sv_SE/all.js#xfbml=1&appId=587758617909778";
+                 fjs.parentNode.insertBefore(js, fjs);
+                 }(document, 'script', 'facebook-jssdk'));</script>
+        
         <div id="container">
         <!-- JOBS PAGE STARTS HERE -->
         <div data-role="page" id="jobs">
@@ -50,6 +73,7 @@
             
             <div id="jobs_content" data-role="content" class="wrapper" data-iscroll>
                 <div id="font-load">a</div>
+                <div class="fb-like" data-href="http://www.facebook.com/skilligt?fref=ts" data-send="false" data-width="450" data-show-faces="false"></div>
                 <ul data-role="listview" id="job">
                     
                 </ul>
@@ -109,7 +133,6 @@
         <!-- SETTINGS PAGE STARTS HERE -->
         
         <div data-role="page" id="settings">
-            
             <div data-role="header" data-position="fixed"  data-tap-toggle="false">
                 <h1>Inst&#228;llningar</h1>
             </div><!-- /header -->
@@ -209,32 +232,35 @@
         
         <!-- ABOUT PAGE STARTS HERE -->
         
-        <div data-role="page" id="about">
-            
-            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
-                <h1>Om oss</h1>
-            </div><!-- /header -->
-            
-            <div data-role="content" class="wrapper" data-iscroll>
-            </div>
-            
-            
-            
-            <!-- Footer starts here -->
-            <div data-role ="footer" data-position="fixed" data-tap-toggle="false">
-                <div data-role="navbar">
+            <div data-role="page" id="about">
+                
+                <div class="header" data-role="header" data-position="fixed"  data-tap-toggle="false">
+                    <h1>Om oss</h1>
+                </div><!-- /header -->
+                
+                <div data-role="content" class="wrapper" id="about_content" data-iscroll>
+                    
                     <ul>
-                        <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
-                        <li><a href="#jobs" id="jobs_tab" data-icon="custom" data-transition="none">Lediga jobb</a></li>
-                        <li><a href="#settings" id="settings_tab" data-icon="custom" data-transition="none">Inst&#228;llningar</a></li>
-                        <li><a href="#" id="info_tab" data-icon="custom" class="ui-btn-active ui-state-persist">Om oss</a></li>
-                        <li><a href="#tips" id="tips_tab" data-icon="custom" data-transition="none">Tips</a></li>
+                        <div id="about_text"></div>
+                        <div id="about_staff"></div>
+                        
                     </ul>
+                    
                 </div>
-            </div><!-- /footer -->
-            
-        </div>
-        
+                <!-- Footer starts here -->
+                <div class="footer" data-role ="footer" data-position="fixed"  data-tap-toggle="false">
+                    <div data-role="navbar">
+                        <ul>
+                            <!-- For iOS add the following to each <a>-tag: data-transition="slide" data-direction="reverse" -->
+                            <li><a href="#jobs" id="jobs_tab" data-transition="none" data-icon="custom">Lediga jobb</a></li>
+                            <li><a href="#settings" id="settings_tab" data-transition="none" data-icon="custom">Inst&#228;llningar</a></li>
+                            <li><a href="#" id="info_tab" data-transition="none" data-icon="custom" class="ui-btn-active ui-state-persist">Om oss</a></li>
+                            <li><a href="#tips" id="tips_tab" data-transition="none" data-icon="custom">Tips</a></li>
+                        </ul>
+                    </div>
+                </div><!-- /footer -->
+                
+            </div>
         <!-- ABOUT PAGE ENDS HERE -->
         
         <!-- TIPS PAGE STARTS HERE -->
@@ -247,8 +273,6 @@
             
             <div data-role="content" class="wrapper" data-iscroll>
             </div>
-            
-            
             
             <!-- Footer starts here -->
             <div data-role ="footer" data-position="fixed" data-tap-toggle="false">

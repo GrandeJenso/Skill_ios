@@ -43,6 +43,8 @@
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
 		77A6B8F71708517200CBC2C0 /* AppDelegate+notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A6B8F41708517200CBC2C0 /* AppDelegate+notification.m */; };
 		77A6B8F81708517200CBC2C0 /* PushPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A6B8F61708517200CBC2C0 /* PushPlugin.m */; };
+		77F89661173795810042143F /* EmailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F89660173795810042143F /* EmailComposer.m */; };
+		77F896631737970F0042143F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F896621737970F0042143F /* MessageUI.framework */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		F840E1F1165FE0F500CFE078 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = F840E1F0165FE0F500CFE078 /* config.xml */; };
 /* End PBXBuildFile section */
@@ -108,6 +110,9 @@
 		77A6B8F41708517200CBC2C0 /* AppDelegate+notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+notification.m"; sourceTree = "<group>"; };
 		77A6B8F51708517200CBC2C0 /* PushPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushPlugin.h; sourceTree = "<group>"; };
 		77A6B8F61708517200CBC2C0 /* PushPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushPlugin.m; sourceTree = "<group>"; };
+		77F8965F173795810042143F /* EmailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmailComposer.h; sourceTree = "<group>"; };
+		77F89660173795810042143F /* EmailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmailComposer.m; sourceTree = "<group>"; };
+		77F896621737970F0042143F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Skill-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Skill-Info.plist"; path = "../Skill-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Skill/config.xml; sourceTree = "<group>"; };
@@ -118,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77F896631737970F0042143F /* MessageUI.framework in Frameworks */,
 				5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */,
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -180,6 +186,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				77F896621737970F0042143F /* MessageUI.framework */,
 				F840E1F0165FE0F500CFE078 /* config.xml */,
 				301BF56E109A69640062928A /* www */,
 				301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */,
@@ -252,6 +259,8 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				77F8965F173795810042143F /* EmailComposer.h */,
+				77F89660173795810042143F /* EmailComposer.m */,
 				77A6B8F31708517200CBC2C0 /* AppDelegate+notification.h */,
 				77A6B8F41708517200CBC2C0 /* AppDelegate+notification.m */,
 				77A6B8F51708517200CBC2C0 /* PushPlugin.h */,
@@ -424,6 +433,7 @@
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				77A6B8F71708517200CBC2C0 /* AppDelegate+notification.m in Sources */,
 				77A6B8F81708517200CBC2C0 /* PushPlugin.m in Sources */,
+				77F89661173795810042143F /* EmailComposer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,7 +500,7 @@
 				INFOPLIST_FILE = "Skill/Skill-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Skill;
-				PROVISIONING_PROFILE = "E2A7A4BE-8033-4C49-AEFA-89F50EB1EAA6";
+				PROVISIONING_PROFILE = "3471B042-D280-4C7C-AC30-99EE7E56F6C0";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2A7A4BE-8033-4C49-AEFA-89F50EB1EAA6";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -511,7 +521,7 @@
 				INFOPLIST_FILE = "Skill/Skill-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Skill;
-				PROVISIONING_PROFILE = "E2A7A4BE-8033-4C49-AEFA-89F50EB1EAA6";
+				PROVISIONING_PROFILE = "3471B042-D280-4C7C-AC30-99EE7E56F6C0";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2A7A4BE-8033-4C49-AEFA-89F50EB1EAA6";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

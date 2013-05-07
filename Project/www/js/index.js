@@ -159,10 +159,9 @@ var detailed_positions;
 var detailed_img;
 var detailed_description;
 
+
 $(document).on('pagebeforeshow', "#jobs", function()
                {
-               //Laddar alla bilder från xml
-               preload(image_array);
                if(!xml_all)
                {
                //Tömmer diven med alla jobben
@@ -234,7 +233,7 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                detailed_location = detailed_job.find('city').text();
                detailed_positions = detailed_job.find('positions').text();
                detailed_img = detailed_job.find('small_logo').text();
-               //preload([detailed_img]);
+               preload([detailed_img]);
                detailed_description = detailed_job.find('content\\:encoded, encoded').text();
                
                $('#detailed_job_view div.header h1').html(detailed_company);
@@ -268,6 +267,9 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                detailed_div.append('<div id="description">'+detailed_description+'</div>');
                detailed_div.append('<hr/>');
                detailed_div.append('<a data-role="button" id="job_link">Ansök</a>');
+               detailed_div.append('<a data-role="button" id="fb_link">Facebook</a>');
+               detailed_div.append('<a data-role="button" id="twitter_link">Twitter</a>');
+               detailed_div.append('<a data-role="button" id="email_link">Email</a>');
                
                //Updaterar innehållet i detaljerad jobb vy
                $('#detailed_job_content').iscrollview("scrollTo",0,0,0,false);
@@ -278,6 +280,34 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                $('a#job_link').mousedown(function(){
                                      var ref = window.open('http://cv.skill.se/cv/assignment.jsp?id='+job_id+'&action=&previewcode=&tc=xml&i18nl=sv&i18nc=SE&i18nv=SKILL'+'&skillapp','_blank', 'location=no');
                                          });
+               
+               $('a#fb_link').mousedown(function(){
+                                        var detailed_job_link = detailed_job.find('link').text();
+                                        var fb_ref = window.open(encodeURI('https://www.facebook.com/dialog/feed?app_id=587758617909778&link='+detailed_job_link+'/&picture=http://skill.se/millnet/logo-facebook-app.png&name='+detailed_title+'&caption='+detailed_location+'&description=Ett ledigt jobb på '+detailed_company+'&redirect_uri=http://www.facebook.com/skilligt?fref=ts'),'_blank', 'location=no');
+                                         });
+               
+               $('a#twitter_link').mousedown(function(){
+                                             var detailed_job_link = detailed_job.find('link').text();
+                                             
+                                             var twitter_ref = window.open('https://twitter.com/intent/tweet?text='+encodeURI('Ledigt jobb: '+detailed_title+': ')+detailed_job_link + escape(' #skilligt #nyttjobb'), '_blank', 'location=no');
+                                             
+                                             });
+               
+               $('a#email_link').mousedown(function(){
+                                             var detailed_job_link = detailed_job.find('link').text();
+                                            var email_args = {
+                                                toRecipients : "",
+                                                ccRecipients : "",
+                                                bccRecipients : "",
+                                                subject : "Tips om ett ledigt jobb: ",
+                                                body : "Jag skulle vilja tipsa om ett ledigt jobb: " + detailed_job_link,
+                                                bIsHtml : false
+                                           }
+                                             Cordova.exec(null, null, "EmailComposer", "showEmailComposer", [email_args]);
+                                             
+                                             });
+               
+               
                
                
                //Klicka på en länk i texten
@@ -290,13 +320,14 @@ $(document).on('pagebeforeshow', '#detailed_job_view', function()
                                                 event.preventDefault();
                                             }
                                             });
-               setTimeout(function() {
-                          $('#detailed_job_content').iscrollview("refresh");
-                          $('#detailed_job_view').trigger("create");
-                          },1000);
+               
+                $('#detailed_job_content').iscrollview("refresh");
+                $('#detailed_job_view').trigger("create");
                
                
                });
+
+
 
 $(document).on('pagebeforeshow', "#settings", function()
                {
@@ -306,12 +337,11 @@ $(document).on('pagebeforeshow', "#settings", function()
                       {
                       $('input[value="'+value+'"]').attr("checked","");
                       });
-               $("#settings").trigger("create");
+               $('#settings').trigger("create");
                }
                
                $('#settings #slider').bind("change",function()
                                            {
-                                           
                                             if($(this).val() == "on")
                                             {
                                                 $("#toggle_push").show();
@@ -375,6 +405,57 @@ $(document).on('pagebeforeshow', "#settings", function()
                
                });
 
+$(document).on('pageinit', "#about", function()
+               {
+               $.ajax({
+                      type: "GET",
+                      url: "http://skill.se/millnet/about.xml",
+                      dataType: "xml",
+                      success: readAboutXml,
+                      error: errorMessage
+                      });
+
+               function readAboutXml(about_xml)
+               {
+               var about_content_staff = $('div#about_content ul div#about_staff');
+               var about_text = $(about_xml).find('about about_content').text();
+               $('div#about_content ul div#about_text').html(about_text);
+               var index = 0;
+               
+               $('div#about_content ul div#about_text').append('<div class="fb-like" data-href="http://www.facebook.com/skilligt?fref=ts" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>');
+               
+               //$('div#about_content ul div#about_text').append('<iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com/skilligt?fref=ts&amp;layout=button_count&amp;show_faces=false&amp;action=like&amp;colorscheme=light"scrolling="no" frameborder="0"style="border:none; overflow:hidden; height:35px; width: 450px;" allowTransparency="true"></iframe>');
+      
+               about_content_staff.append("<table>");
+
+               $(about_xml).find("staff recruiter").each(function()
+                                                         {
+                                                         if(index%2 == 0)
+                                                         {
+                                                            about_content_staff.find("table").append('<tr>');
+                                                         }
+                                                         var recruiter_img = $(this).find('image').text();
+                                                         about_content_staff.find("tr:last").append("<td>");
+                                                         about_content_staff.find("td:last").append("<img src='"+recruiter_img+"'class='recruiter_img'>");
+                                                         var recruiter_name = $(this).find('name').text();
+                                                         about_content_staff.find("td:last").append("<h3>"+recruiter_name+"</h3>");
+                                                         var recruiter_phone = $(this).find('phone').text();
+                                                         about_content_staff.find("td:last").append('<p><a href="tel://'+recruiter_phone+'">'+recruiter_phone+'</a></p>');
+                                                         var recruiter_mobile = $(this).find('mobile').text();
+                                                         about_content_staff.find("td:last").append('<p><a href="tel://'+recruiter_mobile+'">'+recruiter_mobile+'</a></p>');
+                                                         var recruiter_mail = $(this).find('mail').text();
+                                                         about_content_staff.find("td:last").append('<p><a href="mailto:'+recruiter_mail+'">'+recruiter_mail+'</a></p>');
+                                                         about_content_staff.find("tr:last").append("</td>");
+                                                         index++;
+                                                         });
+
+               
+               }
+               $("div#about_content").trigger("create");
+               $("div#about_content").iscrollview("refresh");
+               
+               });
+
 $(document).on('pagebeforeshow', "#first_time_view", function()
                {
                var placement_div = $('#first_time_view #placement');
@@ -425,6 +506,8 @@ $(document).on('pagebeforeshow', "#first_time_view", function()
                                                                                                                          {
                                                                                                                          return this.value;
                                                                                                                          }).get();
+                                                         
+                                                         
                                                          if(device_token.length>0)
                                                          {
                                                          $.ajax({
@@ -454,7 +537,9 @@ $(document).on('pagebeforeshow', "#first_time_view", function()
                                                          db.setItem("push_boolean",push_boolean);
 
                                                          }
+                                                         
                                                          $.mobile.changePage("#jobs",{ transition: "none"});
+                                                         $("#first_time_view_content").remove();
 
                 });
                
