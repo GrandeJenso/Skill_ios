@@ -19,6 +19,7 @@
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
     transform: translate3d(0,0,0);
+    
 }
 
 @font-face
@@ -32,7 +33,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
+    /*background-color:#E4E4E4;
     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
@@ -43,7 +44,7 @@ body {
         color-stop(0, #A7A7A7),
         color-stop(0.51, #E4E4E4)
     );
-    background-attachment:fixed;
+    background-attachment:fixed;*/
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
     height:100%;
@@ -53,7 +54,7 @@ body {
 }
 
 /* Portrait layout (default) */
-.app {
+/*.app {
     background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */
     left:50%;
@@ -64,7 +65,7 @@ body {
     padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
     margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
-}
+}*/
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
@@ -85,7 +86,7 @@ body {
     text-align:center;
     font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
 }*/
-
+/*
 .event {
     border-radius:4px;
     -webkit-border-radius:4px;
@@ -121,7 +122,7 @@ body {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
-
+*/
 #container {
     position: absolute;
     width: 100%;
@@ -142,6 +143,7 @@ body {
 {
     position: relative;
 }
+
 .listelement img {
     position:absolute;
     top:0;
@@ -162,7 +164,7 @@ body {
     font-size:9px;
 }
 
-#detailed_job_content ul, #settings ul, #first_time_view ul, #about_content ul{
+#detailed_job_content ul, #about_content ul, #tips_content ul,#settings ul,#first_time_view ul{
     padding:0;
 }
 
@@ -172,15 +174,15 @@ body {
     padding-bottom:0px;
 }
 
-#detailed_job_content div#description h2, div#about_content h2 {
+#detailed_job_content div#description h2, div#about_content h2, div#tips_content h2{
     font-weight:normal;
     font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
     font-size:20px;
     text-align:left;
-    margin-bottom:0px;
+    margin-bottom:3px;
 }
     
-#detailed_job_content div#description p, #about_text p{
+#detailed_job_content div#description p, #about_text p, #tips_text p{
     font-family:Helvetica, Arial, Sans-Serif;
     margin-top:2px;
     margin-bottom:15px;
@@ -199,13 +201,15 @@ body {
 #about_staff table{
     width:100%;
     margin:0 auto;
+    font-size:11px;
 }
 
-#about_staff tr td{
-    padding:10px;
+#about_staff td{
+    vertical-align:top;
 }
 
-#detailed_job_content h1#job_title , #first_time_view h1{
+
+#detailed_job_content h1#job_title , #first_time_view h1, #tips_text h1{
     font-family:RotisSansSerif, Helvetica, Arial, Sans-Serif;
     font-size:25px;
     text-align:left;
@@ -253,7 +257,11 @@ hr{
     height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
 }
 
-#first_time_view p, #settings p{
+#first_time_view p{
+    font-size:12px;
+    font-family:Helvetica, Arial, Sans-Serif;
+}
+ #settings p{
     font-size:14px;
     font-family:Helvetica, Arial, Sans-Serif;
 }
@@ -275,6 +283,18 @@ img#it-talang {
     margin:0 auto;
     max-width: 40%;
 
+}
+
+img.social_images
+{
+    max-width:32%;
+    padding:1%;
+
+}
+div#social
+{
+    display:block;
+    margin:0 auto;
 }
 
 
@@ -330,14 +350,22 @@ img#it-talang {
 	text-decoration: none;
 }
 
-#detailed_job_content ul{
-margin-bottom:75px;
+
+.slider_div{
+font-size:17px;
 }
 
+#sociala-medier {
+        max-width: 50%;
+        padding:10px;
+    }
+    
+/*.ui-page {
+    -webkit-backface-visibility: hidden;
+}*/
+
+/*a, input, button {
+    -ms-touch-action: none !important;
+}*/
 
 
-    
-    
-    
-    
-    

@@ -163,7 +163,7 @@
 }
 
 /* === SLIDER STYLES === */
-div.ui-slider {
+/*div.ui-slider {
 	height: 9px;
 	border: 1px solid #929292;
 		background: #bababa; /* Old browsers */
@@ -194,10 +194,10 @@ a.ui-slider-handle {
 }
 input.ui-slider-input {
 	display: none !important;
-}
+}*/
 
 /* === SEARCH FIELD === */
-.ui-input-search {
+/*.ui-input-search {
 	height: 31px;
 	background-color: #FFF;
 	border: 1px solid #bbbbbb;
@@ -220,7 +220,7 @@ input.ui-input-text {
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
 		box-shadow: none;
-}
+}*/
 
 /* === BUTTON STYLES - SURROUNDS DIALOG BUTTONS === */
 div.ui-btn {
@@ -459,6 +459,7 @@ div.ui-slider-switch a.ui-slider-handle.ui-focus {
 
 
 /* === RADIO OPTION === */
+/*
 .ui-controlgroup-horizontal .ui-radio .ui-btn {
 	background: #fcfcfc; /* Old browsers */
 	background: -moz-linear-gradient(top,  #fcfcfc 0%, #c9c9c9 100%); /* FF3.6+ */
@@ -530,7 +531,7 @@ input.ui-input-text, .ui-input-search {
 .ui-input-clear * {
 	display: none;
 }
-
+*/
 /* === CUSTOM HEADER BUTTONS === */
 .ui-header .ui-btn {
 	border-color: #375074;

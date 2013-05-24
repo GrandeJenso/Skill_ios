@@ -15,19 +15,7 @@
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.iscrollview-pull.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.iscrollview.css" />
         
-        <script src="js/jquery-1.9.1.min.js"></script>
-        <script src="js/jquery.mobile-1.3.0.min.js"></script>
-        
-        <script src="js/iscroll.js"></script>
-        <script src="js/jquery.mobile.iscrollview.js"></script>
-        
-        <script type="text/javascript" src="cordova-2.5.0.js"></script>
-        <script src="js/PushNotification.js"></script>
-        <script src="js/EmailComposer.js"></script>
-        <script src="js/energize-min.js"></script>
-        <script src="js/index.js"></script>
-        
-        <script type="text/javascript" charset="utf-8">
+        <script type="text/javascript">
         </script>
         
         <title>Skill</title>
@@ -38,29 +26,6 @@
     </head>
     <body>
         
-        <div id="fb-root"></div>
-        <script>
-            window.fbAsyncInit = function() {
-                // init the FB JS SDK
-                FB.init({
-                        appId      : '587758617909778',                        // App ID from the app dashboard
-                        channelUrl : '//www.skill.se', // Channel file for x-domain comms
-                        status     : true,                                 // Check Facebook Login status
-                        xfbml      : true                                  // Look for social plugins on the page
-                        });
-                
-                // Additional initialization code such as adding Event Listeners goes here
-            };
-            
-            
-            (function(d, s, id) {
-                 var js, fjs = d.getElementsByTagName(s)[0];
-                 if (d.getElementById(id)) return;
-                 js = d.createElement(s); js.id = id;
-                 js.src = "//connect.facebook.net/sv_SE/all.js#xfbml=1&appId=587758617909778";
-                 fjs.parentNode.insertBefore(js, fjs);
-                 }(document, 'script', 'facebook-jssdk'));</script>
-        
         <div id="container">
         <!-- JOBS PAGE STARTS HERE -->
         <div data-role="page" id="jobs">
@@ -68,12 +33,12 @@
             <div id="page-header" data-role="header" data-position="fixed"  data-tap-toggle="false">
                 <h1>Lediga jobb</h1>
                 <!--Lite konstigt-->
-                <a data-rel="back"data-theme="a" style="display:none">Bakåt</a>
+                <a data-rel="back" data-theme="a" style="display:none">Bakåt</a>
             </div><!-- /header -->
             
             <div id="jobs_content" data-role="content" class="wrapper" data-iscroll>
                 <div id="font-load">a</div>
-                <div class="fb-like" data-href="http://www.facebook.com/skilligt?fref=ts" data-send="false" data-width="450" data-show-faces="false"></div>
+                <a data-role="button" data-icon="refresh" id="refresh_jobs">Refresh</a>
                 <ul data-role="listview" id="job">
                     
                 </ul>
@@ -137,75 +102,73 @@
                 <h1>Inst&#228;llningar</h1>
             </div><!-- /header -->
             
-            <div data-role="content" class="wrapper" data-iscroll>
+            <div id="settings_content" data-role="content" class="wrapper" data-iscroll>
                 <ul>
-                    <p>Här kan du välja från vilka län, områden och uppdragstyper du vill ha pushnotiser om. När ett nytt jobb dyker upp på Skill som passar in på det du har valt kommer du att få en pushnotis om att jobbet har dykt upp.</p>
+                    <p>För att hålla dig uppdaterad på intressanta lediga tjänster så kan du välja här att ta emot pushnotiser. Genom att fylla i nedanstående fält får du notiser som är anpassade just till dig och dina intressen.</p>
                     <hr/>
-                    <label for="slider">Pushnotiser</label>
-                    <select name="slider" id="slider" data-role="slider">
+                    <label for="settings_slider">Pushnotiser</label>
+                    <div class="slider_div">
+                    <select name="settings_slider" id="settings_slider" data-role="slider">
                         <option value="off" id="off">Av</option>
                         <option value="on" id ="on" selected>På</option>
                     </select>
-                    
-                    <hr/>
+                    </div>
+
                     <div id="toggle_push">
-                    <div id ="placement">
+                    <div id="placement">
                     <fieldset data-role="controlgroup" id="field">
-                        <legend>Klicka i från vilka län du vill ha pushnotiser om: </legend>
-                        <input type="checkbox" class="checkbox_group" name="checkbox-1a" id="checkbox-1a" value="Östergötlands län"/>
+                        <legend>Välj från vilka län du vill ha pushnotiser om: </legend>
+                        <input type="checkbox" class="checkbox_group" name="Östergötlands län" id="checkbox-1a" value="Östergötlands län"/>
                             <label for="checkbox-1a">Östergötlands län</label>
-                            <input type="checkbox" class="checkbox_group" name="checkbox-2a" id="checkbox-2a" value="Jönköpings län"/>
+                            <input type="checkbox" class="checkbox_group" name="Jönköpings län" id="checkbox-2a" value="Jönköpings län"/>
                                 <label for="checkbox-2a">Jönköpings län</label>
-                                <input type="checkbox" class="checkbox_group" name="checkbox-3a" id="checkbox-3a" value="Stockholms län"/>
+                                <input type="checkbox" class="checkbox_group" name="Stockholms län" id="checkbox-3a" value="Stockholms län"/>
                                     <label for="checkbox-3a">Stockholms län</label>
-                                    <input type="checkbox" class="checkbox_group" name="checkbox-4a" id="checkbox-4a" value="Örebro län"/>
+                                    <input type="checkbox" class="checkbox_group" name="Örebro län" id="checkbox-4a" value="Örebro län"/>
                                         <label for="checkbox-4a">Örebro län</label>
-                                        <input type="checkbox" class="checkbox_group" name="checkbox-5a" id="checkbox-5a" value="Västra Götalands län"/>
+                                        <input type="checkbox" class="checkbox_group" name="Västra Götalands län" id="checkbox-5a" value="Västra Götalands län"/>
                                             <label for="checkbox-5a">Västra Götalands län</label>
-                                            <input type="checkbox" class="checkbox_group" name="checkbox-6a" id="checkbox-6a" value="Övriga"/>
+                                            <input type="checkbox" class="checkbox_group" name="Övriga" id="checkbox-6a" value="Övriga"/>
                                                 <label for="checkbox-6a">Övriga</label>
                                                 </fieldset>
                         </div>
                         <div id="area">
-                    <hr/>
                     <fieldset data-role="controlgroup">
-                        <legend>Klicka i från vilket område du vill ha pushnotiser om:</legend>
-                        <input type="checkbox" class="checkbox_group" name="checkbox-1b" id="checkbox-1b" value="Marknad/kommunikation"/>
+                        <legend>Välj från vilket område du vill ha pushnotiser om:</legend>
+                        <input type="checkbox" class="checkbox_group" name="Marknad/kommunikation" id="checkbox-1b" value="Marknad/kommunikation"/>
                             <label for="checkbox-1b">Marknad/kommunikation</label>
-                            <input type="checkbox" class="checkbox_group" name="checkbox-2b" id="checkbox-2b" value="Teknik/data"/>
+                            <input type="checkbox" class="checkbox_group" name="Teknik/data" id="checkbox-2b" value="Teknik/data"/>
                                 <label for="checkbox-2b">Teknik/data</label>
-                                <input type="checkbox" class="checkbox_group" name="checkbox-3b" id="checkbox-3b" value="Ekonomi/juridik"/>
+                                <input type="checkbox" class="checkbox_group" name="Ekonomi/juridik" id="checkbox-3b" value="Ekonomi/juridik"/>
                                     <label for="checkbox-3b">Ekonomi/juridik</label>
-                                    <input type="checkbox" class="checkbox_group" name="checkbox-4b" id="checkbox-4b" value="Samhälle/humaniora/beteendevetenskap"/>
+                                    <input type="checkbox" class="checkbox_group" name="Samhälle/humaniora/beteendevetenskap" id="checkbox-4b" value="Samhälle/humaniora/beteendevetenskap"/>
                                         <label for="checkbox-4b">Sam/hum/beteende</label>
-                                        <input type="checkbox" class="checkbox_group" name="checkbox-5b" id="checkbox-5b" value="Sommarjobb"/>
+                                        <input type="checkbox" class="checkbox_group" name="Sommarjobb" id="checkbox-5b" value="Sommarjobb"/>
                                             <label for="checkbox-5b">Sommarjobb</label>
-                                            <input type="checkbox" class="checkbox_group" name="checkbox-6b" id="checkbox-6b" value="Lärare/pedagogik"/>
+                                            <input type="checkbox" class="checkbox_group" name="Lärare/pedagogik" id="checkbox-6b" value="Lärare/pedagogik"/>
                                                 <label for="checkbox-6b">Lärare/pedagogik</label>
-                                                <input type="checkbox" class="checkbox_group" name="checkbox-7b" id="checkbox-7b" value="Matematik/statistik"/>
+                                                <input type="checkbox" class="checkbox_group" name="Matematik/statistik" id="checkbox-7b" value="Matematik/statistik"/>
                                                     <label for="checkbox-7b">Matematik/statistik</label>
-                                                    <input type="checkbox" class="checkbox_group" name="checkbox-8b" id="checkbox-8b" value="Medicin/vård"/>
+                                                    <input type="checkbox" class="checkbox_group" name="Medicin/vård" id="checkbox-8b" value="Medicin/vård"/>
                                                         <label for="checkbox-8b">Medicin/vård</label>
                                                         </fieldset>
                             </div>
                         <div id="assignment_type">
-                    <hr/>
                     <fieldset data-role="controlgroup">
-                        <legend>Klicka i från vilka uppdragstyper du vill ha pushnotiser om:</legend>
-                        <input type="checkbox" class="checkbox_group" name="checkbox-1c" id="checkbox-1c" value="Hyrrekrytering"/>
+                        <legend>Välj från vilka uppdragstyper du vill ha pushnotiser om:</legend>
+                        <input type="checkbox" class="checkbox_group" name="Hyrrekrytering" id="checkbox-1c" value="Hyrrekrytering"/>
                             <label for="checkbox-1c">Hyrrekrytering</label>
-                            <input type="checkbox" class="checkbox_group" name="checkbox-2c" id="checkbox-2c" value="Rekrytering"/>
+                            <input type="checkbox" class="checkbox_group" name="Rekrytering" id="checkbox-2c" value="Rekrytering"/>
                                 <label for="checkbox-2c">Rekrytering</label>
-                                <input type="checkbox" class="checkbox_group" name="checkbox-3c" id="checkbox-3c" value="Sommarjobb"/>
+                                <input type="checkbox" class="checkbox_group" name="Sommarjobb" id="checkbox-3c" value="Sommarjobb"/>
                                     <label for="checkbox-3c">Sommarjobb</label>
-                                    <input type="checkbox" class="checkbox_group" name="checkbox-4c" id="checkbox-4c" value="Uthyrning"/>
+                                    <input type="checkbox" class="checkbox_group" name="Uthyrning" id="checkbox-4c" value="Uthyrning"/>
                                         <label for="checkbox-4c">Uthyrning</label>
-                                        <input type="checkbox" class="checkbox_group" name="checkbox-5c" id="checkbox-5c" value="Undersökning"/>
+                                        <input type="checkbox" class="checkbox_group" name="Undersökning" id="checkbox-5c" value="Undersökning"/>
                                             <label for="checkbox-5c">Undersökning</label>
                                             
                                             </fieldset>
                                                 </div>
-                    <hr/>
                                                 </div>
                     <a data-role="button" data-theme="g" id="save_settings">Spara Inställningar</a>
                 </ul>
@@ -239,7 +202,7 @@
                 </div><!-- /header -->
                 
                 <div data-role="content" class="wrapper" id="about_content" data-iscroll>
-                    
+                    <a data-role="button" data-icon="refresh" id="refresh_about">Refresh</a>
                     <ul>
                         <div id="about_text"></div>
                         <div id="about_staff"></div>
@@ -271,7 +234,12 @@
                 <h1>Tips</h1>
             </div><!-- /header -->
             
-            <div data-role="content" class="wrapper" data-iscroll>
+            <div data-role="content" class="wrapper" id="tips_content" data-iscroll>
+                <a data-role="button" data-icon="refresh" id="refresh_tips">Refresh</a>
+                <ul>
+                    
+                    <div id="tips_text"></div>
+                </ul>
             </div>
             
             <!-- Footer starts here -->
@@ -289,41 +257,29 @@
             
         </div>
         <!-- TIPS PAGE ENDS HERE -->
-        
-        
-        <!-- NO_INTERNET PAGE STARTS HERE -->
-        
-        <div data-role="page" id="no_internet">
             
-            <div data-role="header" data-position="fixed"  data-tap-toggle="false">
-                <h1>Inget Internet</h1>
-            </div><!-- /header -->
-            
-            <div data-role="content" class="wrapper" data-iscroll>
-                <a  id="refresh_button" data-role="button" data-icon="refresh">Försök igen</a>
-            </div>
-            
-        </div>
-        
-        <!-- NO_INTERNET PAGE ENDS HERE -->
-            
-            <!-- FIRST TIME VIEW STARTS HERE -->
-            <div data-role="page" id="first_time_view">
+        <!-- FIRST TIME VIEW STARTS HERE -->
+           <div data-role="page" id="first_time_view">
                 
                 <div data-role="content" class="wrapper" id="first_time_view_content" data-iscroll>
                     <ul>
                         <div id="welcome">
-                            <h1>Välkommen till Skills app!</h1>
-                            <p>Här kan du hitta ditt nya drömjobb! Genom att tacka ja till Pushnotiser kan du snabbt upptäcka nya jobb som passar just dig!</p>
-                            <hr/>
+                            <h1>Välkommen till Skill!</h1>
+                            <p>Skill är ett rekryterings- och undersökningsföretag som rekryterar till kvalificerade jobb och uppdrag på många spännande företag runt om i landet. Vi rekryterar både till tjänster som kräver många års arbetslivserfarenhet och tjänster för nyutexaminerade akademiker.</p>
                             
-                            <label for="slider">Pushnotiser</label>
-                            <select name="slider" id="slider" data-role="slider">
+                            <p>
+                            I den här appen kan du se och ansöka direkt till våra lediga tjänster. Du hittar även tips inför ditt jobbsökande och det finns möjlighet att kontakta någon av Skills rekryterare.</p>
+                            <hr/>
+                            <p>För att hålla dig uppdaterat på intressanta lediga tjänster så kan du välja här att ta emot pushnotiser.</p>
+                            <label for="welcome_slider">Pushnotiser</label>
+                            <div class="slider_div">
+                            <select name="welcome_slider" id="welcome_slider" data-role="slider">
                                 <option value="off">Av</option>
                                 <option value="on" selected>På</option>
                             </select>
+                            </div>
                             <br/>
-                            <img id="it-talang" src="css/images/dromkandidater.png"/>
+                            <!--<img id="it-talang" src="css/images/dromkandidater.png"/>-->
                             <a data-role="button" data-theme="g" id="welcome_continue" class="continue_button"  data-inline="true">Fortsätt</a>
                         </div>
                         
@@ -340,7 +296,7 @@
                                                 <label for="checkbox-4a">Örebro län</label>
                                                 <input type="checkbox" class="checkbox_group" name="checkbox-5a" id="checkbox-5a" value="Västra Götalands län"/>
                                                     <label for="checkbox-5a">Västra Götalands län</label>
-                                                    <input type="checkbox" class="checkbox_group" name="checkbox-6a" id="checkbox-6a" value="Övriga">
+                                                    <input type="checkbox" class="checkbox_group" name="checkbox-6a" id="checkbox-6a" value="Övriga"/>
                                                         <label for="checkbox-6a">Övriga</label>
                                                         </fieldset>
                             <a data-role="button" id="placement_back" class="back_button"  data-inline="true">Bakåt</a>
@@ -360,7 +316,7 @@
                                                 <label for="checkbox-4b">Sam/hum/beteende</label>
                                                 <input type="checkbox" class="checkbox_group" name="checkbox-5b" id="checkbox-5b" value="Sommarjobb"/>
                                                     <label for="checkbox-5b">Sommarjobb</label>
-                                                    <input type="checkbox" class="checkbox_group" name="checkbox-6b" id="checkbox-6b" value="Lärare/pedagogik">
+                                                    <input type="checkbox" class="checkbox_group" name="checkbox-6b" id="checkbox-6b" value="Lärare/pedagogik"/>
                                                         <label for="checkbox-6b">Lärare/pedagogik</label>
                                                         <input type="checkbox" class="checkbox_group" name="checkbox-7b" id="checkbox-7b" value="Matematik/statistik"/>
                                                             <label for="checkbox-7b">Matematik/statistik</label>
@@ -375,15 +331,15 @@
                         <div id="assignment_type">
                             <fieldset data-role="controlgroup">
                                 <legend>Uppdragstyp:</legend>
-                                <input type="checkbox" class="checkbox_group" name="checkbox-1c" id="checkbox-1c" value="Hyrrekrytering">
+                                <input type="checkbox" class="checkbox_group" name="checkbox-1c" id="checkbox-1c" value="Hyrrekrytering"/>
                                     <label for="checkbox-1c">Hyrrekrytering</label>
-                                    <input type="checkbox" class="checkbox_group" name="checkbox-2c" id="checkbox-2c" value="Rekrytering">
+                                    <input type="checkbox" class="checkbox_group" name="checkbox-2c" id="checkbox-2c" value="Rekrytering"/>
                                         <label for="checkbox-2c">Rekrytering</label>
-                                        <input type="checkbox" class="checkbox_group" name="checkbox-3c" id="checkbox-3c" value="Sommarjobb">
+                                        <input type="checkbox" class="checkbox_group" name="checkbox-3c" id="checkbox-3c" value="Sommarjobb"/>
                                             <label for="checkbox-3c">Sommarjobb</label>
-                                            <input type="checkbox" class="checkbox_group" name="checkbox-4c" id="checkbox-4c" value="Uthyrning">
+                                            <input type="checkbox" class="checkbox_group" name="checkbox-4c" id="checkbox-4c" value="Uthyrning"/>
                                                 <label for="checkbox-4c">Uthyrning</label>
-                                                <input type="checkbox" class="checkbox_group" name="checkbox-5c" id="checkbox-5c" value="Undersökning">
+                                                <input type="checkbox" class="checkbox_group" name="checkbox-5c" id="checkbox-5c" value="Undersökning"/>
                                                     <label for="checkbox-5c">Undersökning</label>
                                                     
                                                     </fieldset>
@@ -397,8 +353,25 @@
             <!-- FIRST TIME VIEW ENDS HERE -->
         
         </div>
+        
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.3.0.min.js"></script>
+        
+        <script type="text/javascript" src="js/iscroll.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile.iscrollview.js"></script>
+        
+        <script type="text/javascript" src="cordova-2.5.0.js"></script>
+        <script type="text/javascript" src="js/PushNotification.js"></script>
+        <script type="text/javascript" src="js/EmailComposer.js"></script>
+        <script type='application/javascript' src='js/fastclick.js'></script>
+        <script type="text/javascript" src="js/energize-min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
         <script type="text/javascript">
             app.initialize();
             </script>
         
-    </body></html>
+    </body>
+    
+
+</html>

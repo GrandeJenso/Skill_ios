@@ -500,8 +500,8 @@
 				INFOPLIST_FILE = "Skill/Skill-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Skill;
-				PROVISIONING_PROFILE = "3471B042-D280-4C7C-AC30-99EE7E56F6C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2A7A4BE-8033-4C49-AEFA-89F50EB1EAA6";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -521,8 +521,8 @@
 				INFOPLIST_FILE = "Skill/Skill-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Skill;
-				PROVISIONING_PROFILE = "3471B042-D280-4C7C-AC30-99EE7E56F6C0";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E2A7A4BE-8033-4C49-AEFA-89F50EB1EAA6";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -535,7 +535,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lena Miranda (EELTMCW9BS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lena Miranda (EELTMCW9BS)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -561,6 +562,8 @@
 					"-all_load",
 					"-Obj-C",
 				);
+				PROVISIONING_PROFILE = "AB363B59-F1E9-4671-A1FC-B5534504A305";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AB363B59-F1E9-4671-A1FC-B5534504A305";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -575,7 +578,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lena Miranda (EELTMCW9BS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lena Miranda (EELTMCW9BS)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -601,6 +605,8 @@
 					"-all_load",
 					"-Obj-C",
 				);
+				PROVISIONING_PROFILE = "AB363B59-F1E9-4671-A1FC-B5534504A305";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AB363B59-F1E9-4671-A1FC-B5534504A305";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
